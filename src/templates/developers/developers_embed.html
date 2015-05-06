@@ -1,0 +1,60 @@
+<div class="section row" ng-controller="BeaconWidgetCtrl">
+  <div class="panel">
+    <div class="panel-heading">
+      Generate Beacon Widget
+    </div>
+    <div class="panel-body">
+
+      <p>
+        Using the beacon widget, you can display beacon results in your website.
+      </p>
+
+      <div class="panel" ng-init="isDone1 = false">
+        <div class="panel-heading">
+          1. Select Beacons
+          <a ng-click="isDone1 = !isDone1; isDone2 = !isDone1; refreshWidgetCode();" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
+          <span class="clearfix"></span>
+        </div>
+        <div class="panel-body" collapse="isDone1">
+          <table class="table" >
+            <tr class="fnt-wt-xbold">
+              <td>Host</td>
+              <td>Dataset</td>
+              <td><center><button class="btn btn-xs btn-default" ng-click="selectAll(true)"> All</button> <button class="btn btn-xs btn-default" ng-click="selectAll(false)"> None</button></center>
+            </tr>
+            <tbody ng-repeat="(orgname, datasets) in organizations">
+
+            <tr ng-repeat="dataset in datasets">
+
+              <td>
+                <span class="fnt-wt-bold" ng-if="$index == 0">{{orgname}}</span>
+              </td>
+              <td>
+                {{dataset.name}}<span class="m-l-sm" ng-if="dataset.aggregator"><i class="fa fa-fw fa-ellipsis-h"></i></span>
+              </td>
+              <td>
+                <center><input type="checkbox" ng-model="dataset.checked" ng-checked="dataset.checked"></center>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <a ng-click="isDone1 = !isDone1; isDone2 = !isDone1" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
+          <span class="clearfix"></span>
+        </div>
+      </div>
+
+      <div class="panel" ng-init="isDone2 = true">
+        <div class="panel-heading">
+          2. Embed HTML
+          <!--<a ng-click="isDone2 = !isDone2;" class="btn btn-xs pull-right" ng-class="!isDone2 ? 'btn-success' : 'btn-default'">{{isDone2 ? "Edit" : "Done"}}</a>
+          <span class="clearfix"></span>-->
+        </div>
+        <div class="panel-body" collapse="isDone2">
+          <pre>
+{{code}}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

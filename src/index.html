@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" ng-app="RDash">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title update-title></title>
+
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
+
+  <!-- JQuery -->
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+  <!-- STYLES -->
+  <!-- build:css lib/css/main.min.css -->
+  <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
+  <link rel="stylesheet" type="text/css" href="components/bootstrap-select/bootstrap-select.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <!-- endbuild -->
+  <!-- SCRIPTS -->
+  <!-- build:js lib/js/main.min.js -->
+  <script type="text/javascript" src="components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="components/angular-cookies/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="components/bootstrap-select/bootstrap-select.js"></script>
+  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <!-- endbuild -->
+
+  <!-- Custom Scripts -->
+  <script type="text/javascript" src="js/module.js"></script>
+  <script type="text/javascript" src="js/routes.js"></script>
+
+  <!-- Beacon -->
+  <script type="text/javascript" src="js/beacon_network.js"></script>
+
+  <!-- World Map -->
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="js/world_map.js"></script>
+
+  <!-- Controllers TODO: lazy load -->
+  <script type="text/javascript" src="js/controllers/dashboard.js"></script>
+  <script type="text/javascript" src="js/controllers/beacon_app.js"></script>
+  <script type="text/javascript" src="js/controllers/beacon_directory.js"></script>
+  <script type="text/javascript" src="js/controllers/beacon_map.js"></script>
+  <script type="text/javascript" src="js/controllers/beacon_widget.js"></script>
+
+  <style>
+    #page-wrapper.open {
+      padding-left: 0px;
+    }
+  </style>
+</head>
+<body ng-controller="MasterCtrl">
+  <div id="page-wrapper" ng-class="{'open': toggle}" class="" ng-cloak>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" class="hidden">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            GA4GH Beacon
+            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+          </a>
+        </li>
+       <!-- <li class="sidebar-title"><span>MENU</span></li>-->
+        <!--<li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="index">Search <span class="menu-icon fa fa-fw fa-search"></span></a>
+        </li>-->
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="beacons.search">Beacon Network <span class="menu-icon fa fa-fw fa-search"></span></a>
+        </li>
+        <!--<li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="ethics">Privacy & Ethics TD <span class="menu-icon fa fa-fw fa-users"></span></a>
+        </li>
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="security">Security TD <span class="menu-icon fa fa-fw fa-lock"></span></a>
+        </li>-->
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="developers.api_beacon">Developers <span class="menu-icon fa fa-fw fa-code"></span></a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="col-xs-4">
+          <a href="https://github.com/ga4gh/beacon-team" target="_blank">
+            Github
+          </a>
+        </div>
+        <div class="col-xs-4">
+          <a href="https://genomicsandhealth.org" target="_blank">
+            GA4GH
+          </a>
+        </div>
+        <div class="col-xs-4">
+          <a href="mailto:beacon@dnastack.com">
+            Support
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+
+    <div id="content-wrapper">
+      <div class="page-content">
+
+        <!-- Header Bar -->
+        <div class="row header hidden">
+          <div class="col-xs-12">
+            <div class="meta">
+              <div class="page m-t-sm">
+                <center><span update-page-name></span></center>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Header Bar -->
+
+        <!-- Main Content -->
+        <div class="m-t" ui-view></div>
+
+      </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+  </div><!-- End Page Wrapper -->
+</body>
+</html>
