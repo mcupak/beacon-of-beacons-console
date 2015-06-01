@@ -37,9 +37,9 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/beacons/beacons_map.html',
                 pageTitle : beaconsTitle
             })
-            .state('beacons.embed', {
-                url: '/embed',
-                templateUrl: 'templates/beacons/beacons_embed.html',
+            .state('beacons.admin', {
+                url: '/admin',
+                templateUrl: 'templates/beacons/beacons_admin.html',
                 pageTitle : beaconsTitle
             })
             .state('developers', {
