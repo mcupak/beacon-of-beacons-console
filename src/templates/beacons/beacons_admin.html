@@ -1,32 +1,62 @@
-<div class="section row" ng-controller="BeaconCtrl">
+<div class="section row" ng-controller="BeaconSwitchCtrl">
   <div class="panel">
     <div class="panel-heading">
       Admin
     </div>
     <div class="panel-body">
-    <div class="beacon-control-ui">
-      <table class="table" >
-        <tr class="fnt-wt-xbold">
-          <td></td>
-          <td>Beacon</td>
-          <td>Insitute</td>
-        </tr>
-        <tbody ng-repeat="(orgname, datasets) in organizations">
+      <div id="beacon-control-ui">
+        <table class="table" >
 
-        <tr ng-repeat="dataset in datasets">
-          <td>
-            <input class="toggle" type="checkbox">
-          </td>
-          <td>
-            {{dataset.name}}<span class="m-l-sm" ng-if="dataset.aggregator"><i class="fa fa-fw fa-sitemap"></i></span>
-          </td>
-          <td>
-            <span class="fnt-wt-bold" ng-if="$index == 0">{{orgname}}</span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+          <tr class="tableHeaders">
+            <td>
+              Beacon
+            </td>
+            <td>Host</td>
+          </tr>
+
+          <tbody ng-repeat="(orgname, datasets) in organizations">
+          <tr ng-repeat="dataset in datasets">
+
+            <td>
+                <div class="beaconSwitchButton">
+                  <input type="checkbox" checked='beacon.checked' class='{{orgname}}' id='{{dataset.id}}' ng-click="checkOrg($event)">
+                  <label for='{{dataset.id}}'></label>
+                </div>
+                <div class="beaconNameLabel">
+                  <label >{{dataset.name}}</label>
+                </div>
+            </td>
+
+            <td ng-if="$first">
+              <div class="beaconSwitchButton">
+                <input class="OnOffSlider" type="checkbox" checked='beacon.checked' id='{{orgname}}' ng-click="checkBeaconsByOrg($event)">
+                <label for='{{orgname}}'></label>
+              </div>
+                <div class="orgNameLabel">
+                  <label>{{orgname}}</label>
+                </div>
+            </td>
+
+          </tr>
+
+          </tbody>
+
+            <tr>
+              <td></td>
+              <td>
+                <div id="SwitchLabel">
+                  <span>Master Switch</span>
+                </div>        
+                <div id="beaconSwitchButton">
+                  <input type="checkbox" id="masterSwitch" ng-init="checked=true" ng-checked="getMasterState()" ng-click="switchAll($event)">
+                  <label for="masterSwitch"></label>
+                </div>
+              </td>
+          </tr>
+        </table>
+
+
+      </div>
     </div>
   </div>
 </div>
