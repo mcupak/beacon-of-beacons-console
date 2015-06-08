@@ -46,14 +46,19 @@
   <script type="text/javascript" src="js/controllers/beacon_directory.js"></script>
   <script type="text/javascript" src="js/controllers/beacon_map.js"></script>
   <script type="text/javascript" src="js/controllers/beacon_widget.js"></script>
+  <script type="text/javascript" src="js/controllers/beacon_faq.js"></script>
 
   <style>
     #page-wrapper.open {
       padding-left: 0px;
     }
+
+    #page-wrapper {
+      padding-left: 0px;
+    }
   </style>
 </head>
-<body ng-controller="MasterCtrl">
+<body ng-controller="MasterCtrl" ng-init="app.contact_email='beacon@dnastack.com'">
   <div id="page-wrapper" ng-class="{'open': toggle}" class="" ng-cloak>
     <!-- Sidebar -->
     <div id="sidebar-wrapper" class="hidden">
@@ -119,8 +124,23 @@
         <!-- Main Content -->
         <div class="m-t" ui-view></div>
 
+        <div class="footer" style="padding-bottom: 10px; margin-bottom: 10px; color:rgb(100,100,100); font-size: 11px">
+          <center>
+            <a href="http://genomicsanhealth.org">Global Alliance for Genomics & Health</a> | Hosted by <a href="http://www.dnastack.com">DNAstack</a>
+          </center>
+        </div>
       </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52918106-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
 </body>
 </html>

@@ -37,6 +37,11 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/beacons/beacons_map.html',
                 pageTitle : beaconsTitle
             })
+            .state('beacons.embed', {
+                url: '/embed',
+                templateUrl: 'templates/beacons/beacons_embed.html',
+                pageTitle : beaconsTitle
+            })
             .state('developers', {
                 abstract: true,
                 url: '/developers',
@@ -55,6 +60,11 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
             .state('developers.embed', {
                 url: '/embed',
                 templateUrl: 'templates/developers/developers_embed.html',
+                pageTitle : developersTitle
+            })
+            .state('developers.faq', {
+                url: '/faq',
+                templateUrl: 'templates/developers/developers_faq.html',
                 pageTitle : developersTitle
             })
             .state('ethics', {
@@ -77,10 +87,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
 
                 var listener = function(event, toState) {
 
-                    var title = 'GA4GH Beacon';
-                    if (toState.pageTitle) {
+                    var title = 'GA4GH Beacon Network';
+                    /*if (toState.pageTitle) {
                         title = title + " | " + toState.pageTitle;
-                    }
+                    }*/
 
 
                     $timeout(function() {
