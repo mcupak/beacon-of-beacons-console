@@ -57,6 +57,11 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/developers/developers_api_beacon.html',
                 pageTitle : developersTitle
             })
+            .state('developers.api_beacon_network', {
+                url: '/api/beacon-network',
+                templateUrl: 'templates/developers/developers_api_beacon_network.html',
+                pageTitle : developersTitle
+            })
             .state('developers.embed', {
                 url: '/embed',
                 templateUrl: 'templates/developers/developers_embed.html',
