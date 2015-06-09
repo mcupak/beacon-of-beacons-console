@@ -2,11 +2,12 @@
  * Beacon Controller
  */
 
-angular.module('RDash').controller('BeaconWidgetCtrl', ['$scope', '$q', '$http', function($scope, $q, $http) {
+angular.module('RDash')
+.controller('BeaconWidgetCtrl', ['$scope', 'API', function($scope, API) {
 
-
-    getBeaconsList($q, $http).then(function(data) {
-
+    API.getBeacons()
+    .success(function(data) {
+        console.log(data);
         for (key in data) {
             for (ds in data[key]) {
                 data[key][ds].checked = false;
@@ -14,14 +15,22 @@ angular.module('RDash').controller('BeaconWidgetCtrl', ['$scope', '$q', '$http',
         }
 
         $scope.organizations = data;
-    }, function(error) {
+    })
+    .error(function(error) {
         console.log('Failed: ' + error);
         $scope.error = error;
         console.log($scope.error);
-    }, function(update) {
-        console.log('Got notification: ' + update);
     });
 
+
+    $scope.chromosomes = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X","Y","MT"];
+
+
+    //search parameter: 
+    $scope.chr = "1";
+    $scope.allele = "A";
+    $scope.ref = "hg18";
+    $scope.pos = "";
 
     $scope.selectAll = function(selected) {
 
@@ -53,6 +62,7 @@ angular.module('RDash').controller('BeaconWidgetCtrl', ['$scope', '$q', '$http',
                 }
             }
         }
+
 
 
         $scope.code =

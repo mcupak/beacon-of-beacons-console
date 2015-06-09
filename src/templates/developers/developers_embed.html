@@ -42,6 +42,62 @@
           <span class="clearfix"></span>
         </div>
       </div>
+      
+      <div class="panel">
+        <div class="panel-heading">
+          2. Select reference genome 
+        </div>
+        <div class="panel-body">
+          <select ng-model="ref">
+            <option value="hg18">GRCh36/hg18</option>
+            <option value="hg19">GRCh37/hg19</option>
+            <option value="hg38">GRCh38/hg38</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="panel">
+        <div class="panel-heading">
+          3. Chromosome
+        </div>
+        <div class="panel-body">
+          <select>
+             
+                    <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+                      {{chromosome}}
+                    </option>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-heading">
+          4. Position (0-based)
+        </div>
+        <div class="panel-body">
+          <input ng-model="pos"> 
+        </div>
+      </div>
+
+
+      <div class="panel">
+        <div class="panel-heading">
+          5. Allele
+        </div>
+        <div class="panel-body">
+          <select ng-model="allele">
+            <option value="A">A</option>
+            <option value="T">T</option>
+            <option value="C">C</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+      </div>
+
+
+
 
       <div class="panel" ng-init="isDone2 = true">
         <div class="panel-heading">
