@@ -71,7 +71,7 @@ angular.module('RDash')
             }
         }
  
-        return "<script src=\"http://dnastack.com/ga4gh/bob/js/bobby.js\"></script>\n" +
+        return "<script src=\"http://localhost:8888/js/widget/writeFrame.js\"></script>\n" +
         "<script>(\n" +
         "    function() {\n" +
         "        var beacons = [" + ids + "];\n" +

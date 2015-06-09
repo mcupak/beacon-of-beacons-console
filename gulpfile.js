@@ -16,6 +16,7 @@ var paths = {
     images: 'src/img/**/*.*',
     templates: 'src/templates/**/*.html',
     index: 'src/index.html',
+    widget: 'src/widget.html',
     bower_fonts: 'bower_components/**/*.{ttf,woff,eof,svg}',
 };
 
@@ -23,7 +24,7 @@ var paths = {
  * Handle bower components from index
  */
 gulp.task('usemin', function() {
-    return gulp.src(paths.index)
+    return gulp.src('src/*.html')
         .pipe(usemin({
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
@@ -81,6 +82,7 @@ gulp.task('watch', function() {
     gulp.watch([paths.scripts], ['custom-js']);
     gulp.watch([paths.templates], ['custom-templates']);
     gulp.watch([paths.index], ['usemin']);
+    gulp.watch([paths.widget], ['usemin']);
 });
 
 /**

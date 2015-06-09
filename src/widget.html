@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- header and hamburger menu template from https://github.com/ymc-thzi/mobile-menu-hamburger -->
+    <title>Beacon of Beacons Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!--Using jQuery and jQuery UI for display effects-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+
+    <!--Using the hamburger menu display code-->
+    <script src="js/widget/hamburger.js"></script>
+
+    <!--Do the query-->
+    <script src="js/widget/query.js"></script>
+
+    <!--Using Media Queries, if the viewport is smaller than 700px use another stylesheet-->
+
+    <!-- build:widget lib/css/widget.min.css -->
+    <link rel="stylesheet" type="text/css" media="all" href="css/widget/widget.css"/>
+    <!-- endbuild -->
+</head>
+
+<body ng-app="app" ng-controller="queryCtrl">
+
+<!--This wrapping container is used to get the width of the whole content-->
+<div id="container">
+
+    <!--The Hamburger Button in the Header-->
+    <header>
+        <div id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div id="pageTitle">Beacon of Beacons</div>
+    </header>
+
+    <!--The mobile navigation Markup hidden via css-->
+    <nav>
+        <ul>
+            <li><a href="http://dnastack.com/ga4gh/bob/about.html" target="_blank">About</a></li>
+            <li><a href="http://dnastack.com/ga4gh/bob/index.html" target="_blank">Search</a></li>
+            <li><a href="http://dnastack.com/ga4gh/bob/map.html" target="_blank">Beacon Map</a></li>
+            <li><a href="https://github.com/mcupak/beacon-of-beacons" target="_blank">Source Code</a></li>
+            <li><a href="mailto:beacon@dnastack.com?subject=Beacon%20of%20Beacons%20Feedback">Feedback</a></li>
+            <li><a href="http://mcupak.github.io/beacon-of-beacons/" target="_blank">Other Info</a></li>
+
+        </ul>
+    </nav>
+
+    <!--The Layer that will be layed over the content
+    so that the content is unclickable while menu is shown-->
+    <div id="contentLayer"></div>
+
+    <!--The content of the site-->
+    <div id="content">
+        <div id="queryParam">
+            <span>Chromosome: {{chr}}</span>
+            <span>Reference: {{ref}}</span>
+            <span>Position: {{pos}}</span>
+            <span>Allele: {{allele}}</span>
+        </div>
+
+        <table id="beaconResults">
+            <tr class="beaconResult" ng-repeat="d in data">
+                <td class="beaconInfo">
+                    <h2>{{d.beacon.name}}</h2>
+                    <small>{{d.beacon.organization}}</small>
+                </td>
+                <td class="response">
+                    <div ng-class="{'redDot':d.response==false, 'greenDot':d.response==true}"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
