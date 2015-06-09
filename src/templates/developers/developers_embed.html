@@ -4,15 +4,15 @@
       Generate Beacon Network Widget
     </div>
     <div class="panel-body">
-
+ 
       <p>
         Using the beacon widget, you can display Beacon Network results in your website.
       </p>
-
+ 
       <div class="panel" ng-init="isDone1 = false">
         <div class="panel-heading">
           1. Select Beacons
-          <a ng-click="isDone1 = !isDone1; isDone2 = !isDone1; refreshWidgetCode();" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
+          <a ng-click="isDone1 = !isDone1;" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
           <span class="clearfix"></span>
         </div>
         <div class="panel-body" collapse="isDone1">
@@ -23,9 +23,9 @@
               <td><center><button class="btn btn-xs btn-default" ng-click="selectAll(true)"> All</button> <button class="btn btn-xs btn-default" ng-click="selectAll(false)"> None</button></center>
             </tr>
             <tbody ng-repeat="(orgname, datasets) in organizations">
-
+ 
             <tr ng-repeat="dataset in datasets">
-
+ 
               <td>
                 <span class="fnt-wt-bold" ng-if="$index == 0">{{orgname}}</span>
               </td>
@@ -38,11 +38,11 @@
             </tr>
             </tbody>
           </table>
-          <a ng-click="isDone1 = !isDone1; isDone2 = !isDone1" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
+          <a ng-click="isDone1 = !isDone1;" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
           <span class="clearfix"></span>
         </div>
       </div>
-      
+ 
       <div class="panel">
         <div class="panel-heading">
           2. Select reference genome 
@@ -55,33 +55,29 @@
           </select>
         </div>
       </div>
-
-
+ 
       <div class="panel">
         <div class="panel-heading">
           3. Chromosome
         </div>
         <div class="panel-body">
-          <select>
-             
-                    <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
-                      {{chromosome}}
-                    </option>
-
+          <select ng-model="chr">
+            <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+              {{chromosome}}
+            </option>
           </select>
         </div>
       </div>
-
+ 
       <div class="panel">
         <div class="panel-heading">
           4. Position (0-based)
         </div>
         <div class="panel-body">
-          <input ng-model="pos"> 
+          <input ng-model="pos" type="number"/>
         </div>
       </div>
-
-
+ 
       <div class="panel">
         <div class="panel-heading">
           5. Allele
@@ -95,22 +91,16 @@
           </select>
         </div>
       </div>
-
-
-
-
-      <div class="panel" ng-init="isDone2 = true">
+ 
+      <div class="panel">
         <div class="panel-heading">
-          2. Embed HTML
-          <!--<a ng-click="isDone2 = !isDone2;" class="btn btn-xs pull-right" ng-class="!isDone2 ? 'btn-success' : 'btn-default'">{{isDone2 ? "Edit" : "Done"}}</a>
-          <span class="clearfix"></span>-->
+          6. Embed HTML
         </div>
-        <div class="panel-body" collapse="isDone2">
-          <pre>
-{{code}}</pre>
+        <div class="panel-body">
+          <pre>{{code()}}</pre>
         </div>
       </div>
     </div>
   </div>
-
+ 
 </div>
