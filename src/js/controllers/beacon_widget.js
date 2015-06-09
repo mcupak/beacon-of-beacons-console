@@ -37,6 +37,7 @@ angular.module('RDash')
         console.log($scope.error);
     });
  
+ 
     $scope.chromosomes = ["1","2","3","4","5","6","7","8","9","10","11","12","13",
                           "14","15","16","17","18","19","20","21","22","X","Y","MT"];
  
@@ -45,7 +46,7 @@ angular.module('RDash')
     $scope.allele = "A";
     $scope.ref = "hg18";
     $scope.pos = 0;
-
+ 
     $scope.selectAll = function(selected) {
         for (var key in $scope.organizations) {
             var org = $scope.organizations[key];
@@ -81,7 +82,6 @@ angular.module('RDash')
         "        writeIFrame(chromosome, position, allele, genome, beacons);\n" +
         "    })();\n" +
         "</script>";
-
     }
  
 }]);
