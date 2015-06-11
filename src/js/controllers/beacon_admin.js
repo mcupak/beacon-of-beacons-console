@@ -26,7 +26,6 @@ angular.module('RDash').controller('BeaconSwitchCtrl', ['$scope', '$q', '$http',
     $scope.updateHostStatus = function(beaconID, beaconStatus){
         //Get organization ID 
         var hostName = document.getElementById(beaconID).className;
-        console.log(hostName);
         var host = document.getElementById(hostName);
         //Update host checked status if necessary 
         if(beaconStatus){
@@ -51,11 +50,14 @@ angular.module('RDash').controller('BeaconSwitchCtrl', ['$scope', '$q', '$http',
     $scope.changeBeaconStatus = function(beaconID, enable){
         if (enable){
             console.log("Enabling " +  beaconID + ".");
-            //TODO : actutal implementation 
         } else {
             console.log("Disabling " +  beaconID + ".");
-            //TODO : actutal implementation 
         }
+        //TODO swap out for real endpoint 
+        $http.put('http://private-20779-beacon7.apiary-mock.com/beacons/'+beaconID, 
+            { enabled: enable }).then(function(response){
+                console.log(response.status);
+            });
     }
 
     /*
@@ -107,7 +109,7 @@ angular.module('RDash').controller('BeaconSwitchCtrl', ['$scope', '$q', '$http',
 
     /*
         Update the state of the master switch
-        TODO: proper handle initializing event 
+        TODO: properly handle initializing event 
     */
     $scope.getMasterState = function(){
         for (host in $scope.organizations){
