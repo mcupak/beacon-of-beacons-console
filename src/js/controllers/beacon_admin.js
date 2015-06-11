@@ -51,13 +51,11 @@ angular.module('RDash').controller('BeaconSwitchCtrl', ['$scope', '$q', '$http',
     $scope.changeBeaconStatus = function(beaconID, enable){
         if (enable){
             console.log("Enabling " +  beaconID + ".");
+            //TODO : actutal implementation 
         } else {
             console.log("Disabling " +  beaconID + ".");
+            //TODO : actutal implementation 
         }
-
-        //TODO swap out for real endpoint 
-        return $http.put('http://private-20779-beacon7.apiary-mock.com/beacons/'+beaconID, 
-            { enabled: enable });
     }
 
     /*
@@ -71,7 +69,7 @@ angular.module('RDash').controller('BeaconSwitchCtrl', ['$scope', '$q', '$http',
         for (i in beacons){
             var beaconID = beacons[i]["id"];
             document.getElementById(beaconID).checked = enable;
-            console.log($scope.changeBeaconStatus(beaconID, enable));
+            $scope.changeBeaconStatus(beaconID, enable);
         };  
     }
 
