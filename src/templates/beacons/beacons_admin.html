@@ -1,0 +1,72 @@
+<div class="section row" ng-controller="BeaconSwitchCtrl">
+  <div class="panel">
+    <div class="panel-heading">
+      Admin
+    </div>
+    <div class="panel-body">
+      <div id="beacon-control-ui">
+        <table class="table" >
+
+          <tr class="tableHeaders">
+            
+            <td>Host</td>
+            <td></td>
+            <td>Beacon</td>
+            <td></td>
+          </tr>
+
+          <tbody ng-repeat="(orgname, datasets) in organizations">
+          <tr ng-repeat="dataset in datasets">
+
+            <td>
+              <div ng-if="$first" class="beaconSwitch">
+                <input class="OnOffSlider" type="checkbox" checked='beacon.checked' id='{{orgname}}' ng-click="checkBeaconsByOrg($event)">
+                <label for='{{orgname}}'></label>
+              </div>
+               <div ng-if="$index!=0"></div>
+            </td>
+            <td >
+                <div ng-if="$first" class="orgNameLabel">
+                  <label>{{orgname}}</label>
+                </div>
+                <div ng-if="$index!=0"></div>
+            </td>
+
+
+            <td>
+                <div class="beaconSwitch">
+                  <input type="checkbox" checked='beacon.checked' class='{{orgname}}' id='{{dataset.id}}' ng-click="checkOrg($event)">
+                  <label for='{{dataset.id}}'></label>
+                </div>
+            </td>
+            <td>
+                <div class="beaconNameLabel">
+                  <label >{{dataset.name}}</label>
+                </div>
+            </td>
+
+          </tr>
+
+          </tbody>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+
+              </td>
+              <td>
+                <div id="beaconSwitchButton">
+                  <input type="checkbox" id="masterSwitch" ng-init="checked=true" ng-checked="getMasterState()" ng-click="switchAll($event)">
+                  <label for="masterSwitch"></label>
+                </div>
+                <span id="SwitchLabel">All beacons</span>
+              </td>
+          </tr>
+        </table>
+
+
+      </div>
+    </div>
+  </div>
+</div>
