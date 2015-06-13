@@ -9,18 +9,18 @@
         Using the beacon widget, you can display Beacon Network results in your website.
       </p>
  
-      <div class="panel" ng-init="isDone1 = false">
+      <div class="panel">
         <div class="panel-heading">
           1. Select Beacons
-          <a ng-click="isDone1 = !isDone1;" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
-          <span class="clearfix"></span>
         </div>
-        <div class="panel-body" collapse="isDone1">
+        <div class="panel-body">
           <table class="table" >
             <tr class="fnt-wt-xbold">
               <td>Host</td>
               <td>Dataset</td>
-              <td><center><button class="btn btn-xs btn-default" ng-click="selectAll(true)"> All</button> <button class="btn btn-xs btn-default" ng-click="selectAll(false)"> None</button></center>
+              <td style='width:10%'>
+                <button class="btn btn-xs btn-default" ng-click="selectAll(true)" style="float:right"> All</button>
+                <button class="btn btn-xs btn-default" ng-click="selectAll(false)" style="float:left"> None</button>
             </tr>
             <tbody ng-repeat="(orgname, datasets) in organizations">
  
@@ -38,8 +38,6 @@
             </tr>
             </tbody>
           </table>
-          <a ng-click="isDone1 = !isDone1;" class="btn btn-xs pull-right" ng-class="!isDone1 ? 'btn-success' : 'btn-default'">{{isDone1 ? "Edit Selections" : "Done Selections"}}</a>
-          <span class="clearfix"></span>
         </div>
       </div>
  
@@ -49,6 +47,7 @@
         </div>
         <div class="panel-body">
           <select ng-model="ref">
+            <option value="all">All</option>
             <option value="hg18">GRCh36/hg18</option>
             <option value="hg19">GRCh37/hg19</option>
             <option value="hg38">GRCh38/hg38</option>

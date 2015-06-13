@@ -30,12 +30,16 @@ app.factory("query", ["$http", function($http){
 
 app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	var searchQuery = document.location.search;
-	console.log(searchQuery);
+	
 	// Get the search parameters 
 	$scope.chr = query.getParam(searchQuery, "chrom");
 	$scope.pos = query.getParam(searchQuery, "pos");
 	$scope.allele = query.getParam(searchQuery, "allele");
 	$scope.ref = query.getParam(searchQuery, "ref");
+	
+	if ($scope.ref == ""){
+		$scope.ref = "All"
+	}
 
 	// Get the true/false results 
 	query.getResponse(searchQuery).success(function(response){
