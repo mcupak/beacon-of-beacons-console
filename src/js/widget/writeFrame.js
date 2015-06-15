@@ -32,8 +32,13 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     // Define iframe's source 
     iFrame.setAttribute("src", url);
 
+    //calculate height: 
+    var height = 99.8*beaconIds.length + 93 + 20 + 63 + 80; 
+
     // Define intial style 
-    iFrame.setAttribute("style", "width:50%; height:75%");
+    iFrame.setAttribute("style", "width:50%; height:" + height + 'px;');
+    iFrame.setAttribute("scrolling", "no");
+
 }
 
 
