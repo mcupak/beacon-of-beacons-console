@@ -1,4 +1,3 @@
-var results;
 (function( window ) {
 	'use strict';
 
@@ -44,6 +43,7 @@ app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	// Get the true/false results 
 	query.getResponse(searchQuery).success(function(response){
 		$scope.data = response;
+		document.getElementById("loading").remove();
 	})
 	
 }]);
