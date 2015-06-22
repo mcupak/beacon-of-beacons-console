@@ -11,7 +11,7 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     // position, allele, and chromosome parameters 
     url += "\&pos=" + position + "\&allele=" + allele + "\&chrom=" + chromosome ;
 
-    //beacons parameters 
+    // beacons parameters 
     var beaconIds = [];
     if (beacons != null){
         for (var i in beacons) {
@@ -32,10 +32,10 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     // Define iframe's source 
     iFrame.setAttribute("src", url);
 
-    //calculate height: 
+    // Calculate height: (height of each beacon + padding + footer + d3 chart)
     var height = 99.8*beaconIds.length + 93 + 20 + 63 + 80; 
 
-    // Define intial style 
+    // Define frame style 
     iFrame.setAttribute("style", "width:50%; height:" + height + 'px;');
     iFrame.setAttribute("scrolling", "no");
 

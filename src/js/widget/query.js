@@ -1,7 +1,9 @@
+var beaconData;
+
 (function( window ) {
 	'use strict';
 
-var app = angular.module('app', []);
+var app = angular.module('RDash', []);
 
 app.factory("query", ["$http", function($http){
 	var query = {};
@@ -35,17 +37,66 @@ app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	$scope.pos = query.getParam(searchQuery, "pos");
 	$scope.allele = query.getParam(searchQuery, "allele");
 	$scope.ref = query.getParam(searchQuery, "ref");
+
+	// d3 chart configuration 
+	$scope.responses = [];
+	$scope.colors = ['green', 'red', 'orange'];
+	$scope.categories = ['Yes', 'No', 'Null'];
+	// Response Summary for d3 chart 
+	// $scope.responses = [
+	// 	{
+	// 		'response': 'yes', 
+	// 		'color' : "green", 
+	// 		'number': 0
+	// 	}, 
+	// 	{
+	// 		'response': 'no', 
+	// 		'color' : "red", 
+	// 		'number': 0
+	// 	}, 
+	// 	{
+	// 		'response': 'null', 
+	// 		'color' : "orange", 
+	// 		'number': 0
+	// 	}
+	// ];
+
+
 	
 	if ($scope.ref == ""){
 		$scope.ref = "All"
 	}
 
+	// Count response types
+	var countResponse = function(data, response){
+		var count = 0;
+		for (var i = 0; i < data.length; i++){
+			if(data[i].response == response){
+				count ++;
+			}
+		}
+		return count;
+	}
+
 	// Get the true/false results 
 	query.getResponse(searchQuery).success(function(response){
 		$scope.data = response;
+		console.log(response);
+		beaconData = response;
 		document.getElementById("loading").remove();
-	})
-	
+		$scope.responses = [countResponse(response, true), 
+			countResponse(response, false), countResponse(response, null)];
+		// $scope.responses[0].number = countResponse(response, true); 
+		// $scope.responses[1].number = countResponse(response, false); 		
+		// $scope.responses[2].number = countResponse(response, null);
+		
+		console.log($scope.responses);
+
+	}).then(function(response){
+		//console.log(response);
+		//console.log(response.data.length);
+
+	});
 }]);
 
 

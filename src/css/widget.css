@@ -198,3 +198,11 @@ footer{
    z-index: 99;
    text-align: center;
 }
+
+.barchart{
+    width:500px;
+    height:90px;
+    display:block;
+    margin:auto;
+    margin-top: 10px
+}

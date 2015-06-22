@@ -4,16 +4,20 @@
     <!-- header and hamburger menu template from https://github.com/ymc-thzi/mobile-menu-hamburger -->
     <title>Beacon of Beacons Result</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
     <!--Do the query-->
     <script src="js/widget/query.js"></script>
+
+    <!--Draw bar graphs --> 
+     <script src="js/directives/graph.js"></script>
 
     <!-- build:widget lib/css/widget.min.css -->
     <link rel="stylesheet" type="text/css" media="all" href="css/widget.css"/>
     <!-- endbuild -->
 </head>
 
-<body ng-app="app" ng-controller="queryCtrl">
+<body ng-app="RDash" ng-controller="queryCtrl">
 
     <header>
         <div id="pageTitle">Beacon Network</div>
@@ -30,6 +34,7 @@
         <div id="loading">
             <img src="img/beacon_loading_placeholder.gif" alt="Loading" style="width:228px;height:228px;">
         </div>
+        <barchart data="responses" colors="colors" categories="categories"></barchart>
 
         <table id="beaconResults">
             <tr class="beaconResult" ng-repeat="d in data">
