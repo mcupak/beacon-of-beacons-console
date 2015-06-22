@@ -295,7 +295,8 @@ tr td {
     font: 12px/26px Arial, sans-serif;
     color: silver;
     position: absolute;
-    right: 5px;
+    right: 4px;
+    bottom: -3px;
     z-index: 0;
     font-weight: bold;
     text-shadow: 1px 1px 0px rgba(255,255,255,.15);
@@ -306,7 +307,8 @@ tr td {
     font: 12px/26px Arial, sans-serif;
     color: #00bf00;
     position: absolute;
-    left: 5px;
+    left: 8px;
+    bottom: -3px;
     z-index: 0;
     font-weight: bold;
 }
