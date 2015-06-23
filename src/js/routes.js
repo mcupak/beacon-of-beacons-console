@@ -6,7 +6,7 @@
 angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
-        // For unmatched routes
+        // The default page for unmatched routes.
         $urlRouterProvider.otherwise('/beacons/search');
 
         var searchTitle         = "Search";
@@ -15,6 +15,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         var securityTitle       = "Security";
         var ethicsTitle         = "Privacy & Ethics";
         var termsTitle          = "Terms of Use";
+        var adminConsoleTitle   = "Admin Control Center";
 
         // Application routes
         $stateProvider
@@ -36,11 +37,6 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
             .state('beacons.map', {
                 url: '/map',
                 templateUrl: 'templates/beacons/beacons_map.html',
-                pageTitle : beaconsTitle
-            })
-            .state('beacons.admin', {
-                url: '/admin',
-                templateUrl: 'templates/beacons/beacons_admin.html',
                 pageTitle : beaconsTitle
             })
             .state('developers', {
@@ -87,6 +83,16 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 url: '/security',
                 templateUrl: 'templates/security.html',
                 pageTitle : securityTitle
+            })
+            .state('beacons.admin', {
+                url: '/admin',
+                templateUrl: 'templates/beacons/beacons_admin.html',
+                pageTitle : adminConsoleTitle
+            })
+            .state('beacons.performance', {
+                url: '/admin/performance', 
+                templateUrl: 'templates/beacons/beacons_admin_performance.html', 
+                pageTitle: adminConsoleTitle
             });
 
 
