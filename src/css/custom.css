@@ -410,16 +410,3 @@ tr td {
 
 }
 
-/* tooltip */ 
-.aggregator-icon:hover:after {
-    border-radius: 5px;
-    color: #312D2D;
-    background: #EBE6E6;
-    content: "Aggregator: the beacon does not serve any datasets on its own; it aggregates the data of other beacons.";
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 98;
-    width: auto;
-    max-width: 200px;
-    min-width: 200px;
-}
