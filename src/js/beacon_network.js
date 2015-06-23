@@ -306,7 +306,7 @@ function groupResponseByOrganization(response) {
 
     var groupedResponse = {};
 
-    console.log(response);
+    //console.log(response);
 
     for (var i = 0; i < response.length; i++) {
         var current = response[i];
