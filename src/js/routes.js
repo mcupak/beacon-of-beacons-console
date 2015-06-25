@@ -84,8 +84,13 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/security.html',
                 pageTitle : securityTitle
             })
-            .state('beacons.admin', {
+            .state('admin', {
                 url: '/admin',
+                templateUrl: 'templates/admins/admins_home.html',
+                pageTitle : adminConsoleTitle
+            })
+            .state('beacons.admin', {
+                url: '/admin/control',
                 templateUrl: 'templates/beacons/beacons_admin.html',
                 pageTitle : adminConsoleTitle
             })

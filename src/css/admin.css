@@ -5,3 +5,48 @@
 .beaconsPanel{
 	padding-right: 0px;
 }
+
+
+/* Admin homepage  */ 
+.admin-menu h2{
+	color:black;
+}
+.col-md-4{
+	height: 10em;
+}
+.col-md-4:hover{
+	background-color:white;
+}
+.col-md-4 h2{
+	color: #3A1758;
+}
+.col-md-4 p{
+	color:black;
+}
+
+.circleBase{
+	margin: auto;
+	text-align: center;
+	color:white;
+	border-radius:50%;
+	background: #618C4E;
+	width: 120px;
+	height: 120px;
+	padding: 10px;
+}
+.circleBase h4{
+	padding-top:10px;
+}
+
+.admin-menu  i{
+	margin-right: 10px;
+}
+
+.beacon-info-panels{
+	margin-top:5em;
+}
+h2.title{
+	margin-top:35px;
+	color: rgb(84, 133, 133);
+}
+

@@ -65,12 +65,16 @@
     #page-wrapper {
       padding-left: 0px;
     }
+
+    ul.sidebar .sidebar-list a {
+      font-size: 17px;
+    }
   </style>
 </head>
 <body ng-controller="MasterCtrl" ng-init="app.contact_email='info@beacon-network.org'">
   <div id="page-wrapper" ng-class="{'open': toggle}" class="" ng-cloak>
     <!-- Sidebar -->
-<!--    <div id="sidebar-wrapper" >
+    <div id="sidebar-wrapper">
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
@@ -78,24 +82,28 @@
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
--->
-       <!-- <li class="sidebar-title"><span>MENU</span></li>-->
-        <!--<li class="sidebar-list" ui-sref-active="active">
-          <a ui-sref="index">Search <span class="menu-icon fa fa-fw fa-search"></span></a>
-        </li>-->
-<!--        <li class="sidebar-list" ui-sref-active="active">
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="index">Home<span class="menu-icon fa fa-fw fa-home"></span></a>
+        </li>
+        <li class="sidebar-list" ui-sref-active="active">
           <a ui-sref="beacons.search">Beacon Network <span class="menu-icon fa fa-fw fa-search"></span></a>
         </li>
--->
-        <!--<li class="sidebar-list" ui-sref-active="active">
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="developers.api_beacon">Developers <span class="menu-icon fa fa-fw fa-code"></span></a>
+        </li>
+
+
+        <li class="sidebar-list" ui-sref-active="active">
+          <a ui-sref="admins.home">Administrators<span class="menu-icon fa fa-fw fa-user-md"></span></a>
+        </li>
+
+        <li class="sidebar-list" ui-sref-active="active">
           <a ui-sref="ethics">Privacy & Ethics TD <span class="menu-icon fa fa-fw fa-users"></span></a>
         </li>
         <li class="sidebar-list" ui-sref-active="active">
           <a ui-sref="security">Security TD <span class="menu-icon fa fa-fw fa-lock"></span></a>
-        </li>-->
-<!--        <li class="sidebar-list" ui-sref-active="active">
-          <a ui-sref="developers.api_beacon">Developers <span class="menu-icon fa fa-fw fa-code"></span></a>
         </li>
+
       </ul>
       <div class="sidebar-footer">
         <div class="col-xs-4">
@@ -115,7 +123,6 @@
         </div>
       </div>
     </div>
--->
     <!-- End Sidebar -->
 
     <div id="content-wrapper">
@@ -126,7 +133,7 @@
           <div class="col-xs-12">
             <div class="meta">
               <div class="page m-t-sm">
-                <center><span update-page-name></span></center>
+                <center><span></span></center>
               </div>
             </div>
           </div>
