@@ -6,9 +6,13 @@
 angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
-        // The default page for unmatched routes.
+        // The default pages for unmatched routes.
+        $urlRouterProvider.when('/admins', '/admins/welcome');
+        $urlRouterProvider.when('/beacons', '/beacons/search');
+        $urlRouterProvider.when('/developers', '/developers/api/beacon');
         $urlRouterProvider.otherwise('/beacons/search');
-
+        
+        // Titles for pages (shown brwoser windows)
         var searchTitle         = "Search";
         var developersTitle     = "Developers";
         var beaconsTitle        = "GA4GH Beacon Network";
@@ -19,6 +23,32 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
 
         // Application routes
         $stateProvider
+            .state('admins', {
+                abstract: true,
+                url: '/admins',
+                templateUrl: 'templates/admins/admins.html'
+            })
+            .state('admins.home', {
+                url: '/welcome',
+                templateUrl: 'templates/admins/admins_home.html',
+                pageTitle : beaconsTitle
+            })
+            .state('admins.control', {
+                url: '/control',
+                templateUrl: 'templates/admins/admins_control.html',
+                pageTitle : beaconsTitle
+            })
+            .state('admins.performance', {
+                url: '/performance',
+                templateUrl: 'templates/admins/admins_performance.html',
+                pageTitle : beaconsTitle
+            })
+            .state('admins.genome', {
+                url: '/genome',
+                templateUrl: 'templates/admins/admins_genome.html',
+                pageTitle : beaconsTitle
+            })
+
             .state('beacons', {
                 abstract: true,
                 url: '/beacons',
@@ -39,6 +69,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/beacons/beacons_map.html',
                 pageTitle : beaconsTitle
             })
+
             .state('developers', {
                 abstract: true,
                 url: '/developers',
@@ -69,11 +100,15 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/developers/developers_faq.html',
                 pageTitle : developersTitle
             })
+<<<<<<< HEAD
             .state('terms', {
                 url: '/terms',
                 templateUrl: 'templates/terms.html',
                 pageTitle : termsTitle
             })
+=======
+
+>>>>>>> Added links to new admin-related pages
             .state('ethics', {
                 url: '/privacy_and_ethics',
                 templateUrl: 'templates/ethics.html',
@@ -83,21 +118,6 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 url: '/security',
                 templateUrl: 'templates/security.html',
                 pageTitle : securityTitle
-            })
-            .state('admin', {
-                url: '/admin',
-                templateUrl: 'templates/admins/admins_home.html',
-                pageTitle : adminConsoleTitle
-            })
-            .state('beacons.admin', {
-                url: '/admin/control',
-                templateUrl: 'templates/beacons/beacons_admin.html',
-                pageTitle : adminConsoleTitle
-            })
-            .state('beacons.performance', {
-                url: '/admin/performance', 
-                templateUrl: 'templates/beacons/beacons_admin_performance.html', 
-                pageTitle: adminConsoleTitle
             });
 
 
