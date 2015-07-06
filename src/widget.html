@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- header and hamburger menu template from https://github.com/ymc-thzi/mobile-menu-hamburger -->
     <title>Beacon of Beacons Result</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!--Do the query-->
     <script src="js/widget/query.js"></script>
@@ -34,7 +34,10 @@
         <div id="loading">
             <img src="img/beacon_loading_placeholder.gif" alt="Loading" style="width:228px;height:228px;">
         </div>
-        <barchart data="responses" colors="colors" categories="categories"></barchart>
+        <div id="barchart-summary">
+            <barchart data="responses" colors="colors" categories="categories"></barchart>
+        </div>
+        
 
         <table id="beaconResults">
             <tr class="beaconResult" ng-repeat="d in data">
@@ -52,10 +55,8 @@
     </div>
 
     <footer>
-        <div id="bobInfo">
-            <a href="http://ga4gh.org/#/beacon" target="_blank">The Beacon Project</a>    
-            <a href="http://mcupak.github.io/beacon-of-beacons/" target="_blank">Other Info</a>
-            <a href="mailto:beacon@dnastack.com?subject=Beacon%20of%20Beacons%20Feedback">Feedback</a> 
+        <div id="bobInfo"> 
+            <a href="http://beacon-network.org/" target="_blank">More Info</a>
         </div>
     </footer>
 

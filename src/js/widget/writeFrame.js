@@ -23,21 +23,18 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     /* Define the Iframe and its styling */  
     
     // Intialize the DOM element 
-    var iFrame = document.getElementById("ga4gh-beacon-bobby");
+    var iFrame = document.getElementById("ga4gh-beacon-widget");
     if (iFrame === null) {
-        document.write("<div><iframe id=\"ga4gh-beacon-bobby\"></iframe></div>");
-        iFrame = document.getElementById("ga4gh-beacon-bobby");
+        document.write("<div><iframe id=\"ga4gh-beacon-widget\"></iframe></div>");
+        iFrame = document.getElementById("ga4gh-beacon-widget");
     }
 
     // Define iframe's source 
     iFrame.setAttribute("src", url);
 
-    // Calculate height: (height of each beacon + padding + footer + d3 chart)
-    var height = 99.8*beaconIds.length + 93 + 20 + 63 + 80; 
-
     // Define frame style 
-    iFrame.setAttribute("style", "width:50%; height:" + height + 'px;');
-    iFrame.setAttribute("scrolling", "no");
+    iFrame.setAttribute("style", "width:500px; height:50%");
+    iFrame.setAttribute("scrolling", "yes");
 
 }
 
