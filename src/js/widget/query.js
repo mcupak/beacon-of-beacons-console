@@ -1,5 +1,3 @@
-var beaconData;
-
 (function( window ) {
 	'use strict';
 
@@ -41,31 +39,13 @@ app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	// d3 chart configuration 
 	$scope.responses = [];
 	$scope.colors = ['green', 'red', 'orange'];
-	$scope.categories = ['Yes', 'No', 'Null'];
-	// Response Summary for d3 chart 
-	// $scope.responses = [
-	// 	{
-	// 		'response': 'yes', 
-	// 		'color' : "green", 
-	// 		'number': 0
-	// 	}, 
-	// 	{
-	// 		'response': 'no', 
-	// 		'color' : "red", 
-	// 		'number': 0
-	// 	}, 
-	// 	{
-	// 		'response': 'null', 
-	// 		'color' : "orange", 
-	// 		'number': 0
-	// 	}
-	// ];
-
-
+	$scope.categories = ['Yes', 'No', 'Error'];
 	
 	if ($scope.ref == ""){
 		$scope.ref = "All"
 	}
+
+	$("barchart").hide();
 
 	// Count response types
 	var countResponse = function(data, response){
@@ -81,20 +61,10 @@ app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	// Get the true/false results 
 	query.getResponse(searchQuery).success(function(response){
 		$scope.data = response;
-		console.log(response);
-		beaconData = response;
 		document.getElementById("loading").remove();
+		$("barchart").show();
 		$scope.responses = [countResponse(response, true), 
 			countResponse(response, false), countResponse(response, null)];
-		// $scope.responses[0].number = countResponse(response, true); 
-		// $scope.responses[1].number = countResponse(response, false); 		
-		// $scope.responses[2].number = countResponse(response, null);
-		
-		console.log($scope.responses);
-
-	}).then(function(response){
-		//console.log(response);
-		//console.log(response.data.length);
 
 	});
 }]);
