@@ -1,16 +1,16 @@
 .beacon-info-icon{
-	color: rgb(154,205,50); 
+    color: rgb(154,205,50); 
 }
 .org-info-icon{
-	color: rgb(66,139,202);
+    color: rgb(66,139,202);
 }
 
 .aggregator-icon{
-	color: rgb(172,172,172);
+    color: rgb(172,172,172);
 }
 
 .aggregator-icon:hover{
-	color: black;
+    color: black;
 }
 
 .aggregator-icon:hover:after {
@@ -18,7 +18,7 @@
     margin-left: 10px;
     color: #312D2D;
     background: #EBE6E6;
-    content: "Aggregator: this beacon does not serve datasets of its own; it aggregates the data of other beacons.";
+    content: "Aggregator of data served by other beacons.";
     padding: 5px 5px;
     position: absolute;
     text-align: left;
