@@ -33,7 +33,7 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     iFrame.setAttribute("src", url);
 
     // Define frame style 
-    iFrame.setAttribute("style", "width:500px; height:50%");
+    iFrame.setAttribute("style", "width:40%; height:70%");
     iFrame.setAttribute("scrolling", "yes");
 
 }

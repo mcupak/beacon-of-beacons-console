@@ -27,9 +27,9 @@ app.directive('barchart', ['$parse', '$window', function($parse, $window){
 				baseLineThickness = 2,
 				rightPadding = 35,
 				leftPadding = 25,
-				categoryTextSpace = 40,
+				categoryTextSpace = 45,
 				categorySpace = leftPadding + categoryTextSpace, 
-				categoryFontSize = 15, 
+				categoryFontSize = 18, 
 				valueFontSize = 15, 
 				textVerticalOffset = 15; 
 

@@ -34,16 +34,16 @@ app.controller("queryCtrl", ["query", "$scope", function(query, $scope){
 	$scope.chr = query.getParam(searchQuery, "chrom");
 	$scope.pos = query.getParam(searchQuery, "pos");
 	$scope.allele = query.getParam(searchQuery, "allele");
-	$scope.ref = query.getParam(searchQuery, "ref");
+	//$scope.ref = query.getParam(searchQuery, "ref");
 
 	// d3 chart configuration 
 	$scope.responses = [];
 	$scope.colors = ['green', 'red', 'orange'];
 	$scope.categories = ['Yes', 'No', 'Error'];
 	
-	if ($scope.ref == ""){
-		$scope.ref = "All"
-	}
+	// if ($scope.ref == ""){
+	// 	$scope.ref = "All"
+	// }
 
 	$("barchart").hide();
 
