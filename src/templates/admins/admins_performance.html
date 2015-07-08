@@ -1,10 +1,14 @@
-<div class="section row" ng-controller="BeaconSwitchCtrl">
+<div class="section row" ng-controller="performanceCtrl">
   <div class="panel">
     <div class="panel-heading">
       Beacon Performance
     </div>
-    <div class="panel-body">
-     
+    <div id='performance' class="panel-body">
+      <!-- MDL Progress Bar with Indeterminate Progress -->
+      <div id="progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate progress-demo"></div>
+
+      <donut data="data" name="name" colors="colors" nquery="nquery"></donut>
+    
     </div>
   </div>
 </div>
