@@ -11,9 +11,9 @@ angular.module("RDash").factory("mockedAPI", ['$http', function($http) {
 			return $http.get(API_ENDPOINT + "/beacons");
 		},
 
-		/* Return information about all organizations */ 
-		getResponse: function() {
-			return $http.get(API_ENDPOINT + "/organizations");
+		/* Return information about queries and responses that have been made to all beacons */ 
+		getQueries: function() {
+			return $http.get(API_ENDPOINT + "/beacons/responses");
 		}
 	};
 }]);

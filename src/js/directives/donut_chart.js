@@ -12,8 +12,8 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			var data = scope[attrs.data],
 				colors =  scope[attrs.colors],
 				name = scope[attrs.name], 
-				total = scope[attrs.nquery];
-
+				total = scope.$eval(attrs.nquery);
+			
 			// Pie chart aesthetic settings 
 			var w = 200, 
 				h = 200, 
@@ -28,7 +28,8 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			var arc = d3.svg.arc()
 							.innerRadius(innerRadius)
 							.outerRadius(outerRadius);
-			var pie = d3.layout.pie();
+							
+			var pie = d3.layout.pie().sort(null);
 			var svg = d3.select(".donut-chart")
 						.append("svg")
 						.attr("width", w)
@@ -51,6 +52,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				.attr("text-anchor", "middle")
 				.style("font-family", "Roboto")
 				.style("font-size", sumFontSize)
+				.style("fill", "#888")
 				.text(total);
 
 			function drawDonut(){
@@ -81,7 +83,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				    .attr("text-anchor", "middle")
 				    .style("font-size", labelFontSize)
 				    .style("fill", "white")
-				    .text(function(d){ return d.value; });
+				    .text(function(d){ return (d.value <= 0 ? ' ' : d.value); });
 
 			}
 

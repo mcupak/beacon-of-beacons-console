@@ -52,3 +52,7 @@ h2.title{
 .beaconsPanel{
 	padding-right: 0px;
 }
+
+svg{
+	margin: 2em;
+}

@@ -1,21 +1,21 @@
-<div class="section row" ng-controller="performanceCtrl">
-  <div class="panel">
-    <div class="panel-heading">
-      Beacon Performance
-    </div>
-    <div id='performance' class="panel-body">
-      <!-- MDL Progress Bar with Indeterminate Progress -->
-      <div id="progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate progress-demo"></div>
+<div ng-controller="performanceCtrl">
 
-      <donut data="data" name="name" colors="colors" nquery="nquery"></donut>
-    
+<div class="section row">
+  <div class="panel">
+<!--     <div class="panel-heading">
+      Beacon Performance
+    </div> -->
+    <div id='performance' class="panel-body">
+
+    <div ng-repeat="(key, beacon) in summary">
+      <donut data="beacon.nResponse" nquery="beacon.nQuery" name="key" colors="colors"></donut>
+    </div> 
+
     </div>
   </div>
 </div>
 
-
-
-<div class="col-lg-6 variantsPanel" ng-controller="BeaconSwitchCtrl">
+<div class="col-lg-6 variantsPanel">
   <div class="panel">
     <div class="panel-heading">
       Popular Variants 
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="col-lg-6 beaconsPanel" ng-controller="BeaconSwitchCtrl">
+<div class="col-lg-6 beaconsPanel">
   <div class="panel">
     <div class="panel-heading">
       Popular Beacons 
@@ -36,3 +36,5 @@
     </div>
   </div>
 </div>
+</div>
+
