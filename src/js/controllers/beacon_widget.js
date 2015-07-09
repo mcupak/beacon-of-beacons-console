@@ -71,7 +71,7 @@ angular.module('RDash')
             }
         }
  
-        return "<script src=\"http://localhost:8888/js/widget/writeFrame.js\"></script>\n" +
+        return "<script src=\"http://beacon-network.org/js/widget/writeFrame.js\"/>\n" +
         "<script>(\n" +
         "    function() {\n" +
         "        var beacons = [" + ids + "];\n" +
