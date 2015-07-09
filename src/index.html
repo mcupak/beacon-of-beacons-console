@@ -62,7 +62,7 @@
     }
   </style>
 </head>
-<body ng-controller="MasterCtrl" ng-init="app.contact_email='beacon@dnastack.com'">
+<body ng-controller="MasterCtrl" ng-init="app.contact_email='info@beacon-network.org'">
   <div id="page-wrapper" ng-class="{'open': toggle}" class="" ng-cloak>
     <!-- Sidebar -->
     <div id="sidebar-wrapper" class="hidden">
@@ -128,9 +128,9 @@
         <!-- Main Content -->
         <div class="m-t" ui-view></div>
 
-        <div class="footer" style="padding-bottom: 10px; margin-bottom: 10px; color:rgb(100,100,100); font-size: 11px">
+        <div class="footer" style="padding-bottom: 10px; margin-bottom: 10px; color:rgb(100,100,100); font-size: 12px">
           <center>
-            <a href="http://genomicsanhealth.org">Global Alliance for Genomics & Health</a> | Hosted by <a href="http://www.dnastack.com">DNAstack</a>
+            <a href="http://genomicsanhealth.org">Global Alliance for Genomics & Health</a> | <a href="mailto:{{app.contact_email}}">Feedback</a> | <a ui-sref="terms">Terms of Use</a><!-- | Hosted by <a href="http://www.dnastack.com">DNAstack</a>-->
           </center>
         </div>
       </div><!-- End Page Content -->

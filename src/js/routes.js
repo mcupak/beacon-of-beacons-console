@@ -14,6 +14,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         var beaconsTitle        = "GA4GH Beacon Network";
         var securityTitle       = "Security";
         var ethicsTitle         = "Privacy & Ethics";
+        var termsTitle          = "Terms of Use";
 
         // Application routes
         $stateProvider
@@ -71,6 +72,11 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 url: '/faq',
                 templateUrl: 'templates/developers/developers_faq.html',
                 pageTitle : developersTitle
+            })
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'templates/terms.html',
+                pageTitle : termsTitle
             })
             .state('ethics', {
                 url: '/privacy_and_ethics',
