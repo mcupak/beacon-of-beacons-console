@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beacon of Beacons Result</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!--Do the query-->
+    <script src="js/widget/query.js"></script>
+
+    <!--Draw bar graphs --> 
+     <script src="js/directives/graph.js"></script>
+
+    <!-- build:widget lib/css/widget.min.css -->
+    <link rel="stylesheet" type="text/css" media="all" href="css/widget.css"/>
+    <!-- endbuild -->
+</head>
+
+<body ng-app="RDash" ng-controller="queryCtrl">
+
+    <header>
+        <div id="pageTitle">Beacon Network</div>
+    </header>
+
+    <div id="content">
+        <div id="queryParam">
+            <div>Chromosome: {{chr}}</div>
+            <div>Position: {{pos}}</div>
+            <div>Allele: {{allele}}</div>
+        </div>
+
+        <div id="loading">
+            <img src="img/beacon_loading_placeholder.gif" alt="Loading" style="width:228px;height:228px;">
+        </div>
+        <div id="barchart-summary">
+            <barchart data="responses" colors="colors" categories="categories"></barchart>
+        </div>
+        
+
+        <table id="beaconResults">
+            <tr class="beaconResult" ng-repeat="d in data">
+                <td class="beaconInfo">
+                    <h2>{{d.beacon.name}}</h2>
+                    <small>{{d.beacon.organization}}</small>
+                </td>
+                <td class="response">
+                    <a class="tooltip">
+                        <div ng-class="{'redDot':d.response==false, 'greenDot':d.response==true, 'orangeDot':d.response==null}"></div>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <div id="bobInfo"> 
+            <a href="http://beacon-network.org/" target="_blank">More Info</a>
+        </div>
+    </footer>
+
+</body>
+</html>

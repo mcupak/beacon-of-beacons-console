@@ -43,6 +43,9 @@
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="js/world_map.js"></script>
 
+  <!-- Services -->
+  <script type="text/javascript" src="js/services/api.js"></script>
+
   <!-- Controllers TODO: lazy load -->
   <script type="text/javascript" src="js/controllers/dashboard.js"></script>
   <script type="text/javascript" src="js/controllers/beacon_app.js"></script>
@@ -65,7 +68,7 @@
 <body ng-controller="MasterCtrl" ng-init="app.contact_email='info@beacon-network.org'">
   <div id="page-wrapper" ng-class="{'open': toggle}" class="" ng-cloak>
     <!-- Sidebar -->
-    <div id="sidebar-wrapper" class="hidden">
+    <div id="sidebar-wrapper" >
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
