@@ -100,15 +100,11 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'templates/developers/developers_faq.html',
                 pageTitle : developersTitle
             })
-<<<<<<< HEAD
             .state('terms', {
                 url: '/terms',
                 templateUrl: 'templates/terms.html',
                 pageTitle : termsTitle
             })
-=======
-
->>>>>>> Added links to new admin-related pages
             .state('ethics', {
                 url: '/privacy_and_ethics',
                 templateUrl: 'templates/ethics.html',
