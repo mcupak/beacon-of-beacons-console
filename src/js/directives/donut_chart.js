@@ -33,8 +33,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			var svg = d3.select(".donut-chart")
 						.append("svg")
 						.attr("width", w)
-						.attr("height", h)
-						.attr("transform","translate("+w/2+","+h/2+")");
+						.attr("height", h);
 
 			// Append and styling title and number
 			var title = svg.append("text")
@@ -42,7 +41,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 					.attr("x", w / 2)
 					.attr("text-anchor", "middle")
 					.style("font-family", "Roboto")
-					.style("font-size", titleFontSize)
+					.style("font-size", titleFontSize + 'px')
 					.style("fill", "#888")
 					.text(name);
 
@@ -51,7 +50,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				.attr("x", w / 2)
 				.attr("text-anchor", "middle")
 				.style("font-family", "Roboto")
-				.style("font-size", sumFontSize)
+				.style("font-size", sumFontSize + 'px')
 				.style("fill", "#888")
 				.text(total);
 

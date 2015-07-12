@@ -4,7 +4,7 @@
 angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
  function($scope, mockedAPI) {
 
-    // Coloring of the donut charts 
+    // Coloring of the donut charts for [yes, no, null/error]
     $scope.colors = ["green", "red", "orange"];
     
     /*
