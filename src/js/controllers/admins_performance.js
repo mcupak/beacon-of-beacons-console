@@ -64,9 +64,51 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
 
     }
 
+    // Get beacon response summary 
     mockedAPI.getQueries().success(function(response){
-       var groupedResponse = groupResponsesByBeacon(response);
-       $scope.summary = summarizeResponse(groupedResponse);
+        $('#beacon-summary').remove();
+       //var groupedResponse = groupResponsesByBeacon(response);
+       //$scope.summary = summarizeResponse(groupedResponse);
     });
+
+    $scope.readonly = false;
+    $scope.selectedItem = null;
+    $scope.searchText = null;
+    $scope.querySearch = querySearch;
+    $scope.beacons = [];
+    $scope.selectedBeacons = [];
+    $scope.numberChips = [];
+    $scope.numberChips2 = [];
+    $scope.numberBuffer = '';
+
+    // Search for beacon
+    function querySearch (query) {
+      var results = query ? $scope.beacons.filter(createFilterFor(query)) : [];
+      return results;
+    }
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(beacon) {
+        return (beacon._lowername.indexOf(lowercaseQuery) === 0) ||
+            (beacon._lowertype.indexOf(lowercaseQuery) === 0);
+      };
+    }
+
+    mockedAPI.getBeacons().success(function(response){
+        console.log(response);
+        var beaconInfo = response; 
+        for(i in beaconInfo){
+            beaconInfo[i]._lowername = beaconInfo[i].id.toLowerCase();
+            beaconInfo[i]._lowertype = beaconInfo[i].organization.id.toLowerCase();                
+        }
+        $scope.beacons = beaconInfo;
+        
+        //$("md-autocomplete").attr("placeholder", "Search for beacons"); //cannot work 
+       
+    });
+
 
 }]);

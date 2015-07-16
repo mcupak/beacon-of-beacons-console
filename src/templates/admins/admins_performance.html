@@ -5,8 +5,36 @@
 <!--     <div class="panel-heading">
       Beacon Performance
     </div> -->
-    <div id='performance' class="panel-body">
 
+  <div class="searchBar">
+    <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
+      <md-autocomplete
+          class="auto-complete"
+          md-search-text-change="null"
+          md-selected-item-change=""
+          md-selected-item="selectedItem"
+          md-search-text="searchText"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.name"
+          placeholder="Search for beacons">
+        <span md-highlight-text="searchText">{{item.name}} :: {{item.organization.id}}</span>
+      </md-autocomplete>
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.name}}</strong>
+          <em>({{$chip.organization.id}})</em>
+        </span>
+      </md-chip-template>
+      <button md-chip-remove="" class="md-primary beaconchip">
+        <i class="fa fa-times"></i>
+      </button>
+
+    </md-chips>
+  </div>
+    
+
+    <div id='performance' class="panel-body">
+    <md-progress-linear md-mode="indeterminate" id="beacon-summary"></md-progress-linear>
     <div ng-repeat="(key, beacon) in summary">
       <donut data="beacon.nResponse" nquery="beacon.nQuery" name="key" colors="colors"></donut>
     </div> 
@@ -21,7 +49,9 @@
       Popular Variants 
     </div>
     <div class="panel-body">
-     
+    
+
+
     </div>
   </div>
 </div>
