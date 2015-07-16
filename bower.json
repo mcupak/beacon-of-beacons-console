@@ -22,7 +22,7 @@
   "dependencies": {
     "rdash-ui": "1.0.*",
     "lodash": "3.10.0",
-    "angular": "1.4.0",
+    "angular": "1.4.3",
     "angular-cookies": "1.4.0",
     "angular-bootstrap": "~0.11.0",
     "angular-ui-router": "^0.2.10",
