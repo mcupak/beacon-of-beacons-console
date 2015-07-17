@@ -86,7 +86,7 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     
 
     /* Beacon chip search bar */ 
-
+    $scope.searchBarText = "Loading..."
     $scope.readonly = false;
     $scope.selectedItem = null;
     $scope.searchText = null;
@@ -121,9 +121,9 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
             beaconInfo[i]._lowertype = beaconInfo[i].organization.id.toLowerCase();                
         }
         $scope.beacons = beaconInfo;
-        
-        //$("md-autocomplete").attr("placeholder", "Search for beacons"); //cannot work 
-       
+
+        $scope.searchBarText = "Search for beacons"; 
+
     });
 
 
