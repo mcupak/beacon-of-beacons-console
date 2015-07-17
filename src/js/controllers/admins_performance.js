@@ -71,6 +71,37 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
        //$scope.summary = summarizeResponse(groupedResponse);
     });
 
+
+    /* Histogram */ 
+
+    $scope.data = [
+        {
+            "name": "bob",
+            "nqueries": 20
+        },
+        {
+            "name": "amp",
+            "nqueries": 25
+        },
+        {
+            "name": "lamb",
+            "nqueries": 10
+        },
+
+        {
+            "name": "bo2",
+            "nqueries" : 0
+        },
+
+        {
+            "name": "bob2",
+            "nqueries" : 5
+        }
+    ];
+    
+
+    /* Beacon chip search bar */ 
+
     $scope.readonly = false;
     $scope.selectedItem = null;
     $scope.searchText = null;
