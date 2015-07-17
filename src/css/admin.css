@@ -57,6 +57,9 @@ svg{
 	margin: 2em;
 }
 
+.sortButton{
+	float: right;
+}
 
 .beacon-chips .md-chip {
 	position: relative;

@@ -38,11 +38,8 @@
     <div ng-repeat="(key, beacon) in summary">
       <donut data="beacon.nResponse" nquery="beacon.nQuery" name="key" colors="colors"></donut>
     </div> 
-
-    <label><input type="checkbox"> Sort </label>
+    <md-button class="md-raised sortButton">Sort</md-button>
     <histogram data="data"></histogram> 
-
-    <md-button class="md-raised">button</md-button>
     </div>
   </div>
 </div>

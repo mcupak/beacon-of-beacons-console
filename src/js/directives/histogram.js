@@ -9,12 +9,12 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			var d3 = $window.d3;
 
 			// Aesthetic settings 
-			var margin = {top: 20, right: 20, bottom: 20, left: 40},
-			    width = 960 - margin.left - margin.right,
+			var margin = {top: 20, right: 50, bottom: 20, left: 50},
+			    width = document.getElementById('performance').clientWidth || 940 - margin.left - margin.right,
 			    height = 500 - margin.top - margin.bottom, 
-			    barColor = "steelblue";
+			    barColor = "steelblue", 
+			    axisColor = "whitesmoke";
 
-			
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data];
 
@@ -72,28 +72,30 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				.style("text-anchor", "end")
 				.text("Queries #");
 
-
 			var bar = svg.selectAll(".bar")
 				.data(data)
 				.enter().append("g")
-				.attr("class", "bar")
-				.attr("transform", function(d) { 
-					return "translate(" + x(d.name) + "," + y(d.nqueries) + ")"; });
-
+				.attr("class", "bar");
 
 			bar.append("rect")
 				.attr("class", "bar")
-				.attr("x", 1)
+				.attr("x", function(d){ return x(d.name) })
 				.attr("width", x.rangeBand())
+				.attr("y", function(d){ return y(d.nqueries) })
 				.attr("height", function(d) { return height - y(d.nqueries); })
 				.attr("fill", barColor);
 
 			bar.append("text")
-				.attr("y", 0)
+				.attr("y", function(d){ return y(d.nqueries) })
+				.attr("x", function(d){ return x(d.name) })
 				.attr("dy", "-1px")
 				.attr("dx", x.rangeBand()/2 )
 				.attr("text-anchor", "middle")
+				.attr("class", "numberLabel")
 				.text(function(d) { return formatCount(d.nqueries); });
+
+			// Change axis color 
+			d3.selectAll("path").attr("fill", axisColor);
 
 			// Render the graph when data is changed. 
 			// scope.$watchCollection(exp, function(newCollection, oldCollection, scope) {
@@ -102,6 +104,39 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			// });
 
 
-		}
+			var sortByVal = false; 
+			d3.select(".sortButton").on("click", function(){
+				sortByVal = !sortByVal;
+				change(sortByVal);
+			});
+
+			d3.select("sortSwitch").on("change", change);
+
+			var sortTimeout = setTimeout(1000);
+
+			function change(sortByVal) {
+				clearTimeout(sortTimeout);
+
+				// Copy-on-write since tweens are evaluated after a delay.
+				var x0 = x.domain(data.sort(sortByVal
+				    ? function(a, b) { return b.nqueries - a.nqueries; }
+				    : function(a, b) { return d3.ascending(a.name, b.name); })
+				    .map(function(d) { return d.name; }))
+				    .copy();
+
+				var transition = svg.transition().duration(750),
+				    delay = function(d, i) { return i * 50; };
+
+				transition.selectAll([".bar", ".numberLabel"])
+				    .delay(delay)
+				    .attr("x", function(d) { return x0(d.name); });
+
+				transition.select(".x.axis")
+				    .call(xAxis)
+				  .selectAll("g")
+				    .delay(delay);
+				}
+
+			}
 	};
 }]);

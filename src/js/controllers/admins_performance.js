@@ -75,41 +75,14 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     /* Histogram */ 
 
     $scope.data = [
-        {
-            "name": "bob",
-            "nqueries": 20
-        },
-        {
-            "name": "amp",
-            "nqueries": 25
-        },
-        {
-            "name": "amb",
-            "nqueries": 10
-        },
-
-        {
-            "name": "bo3",
-            "nqueries" : 0
-        },
-        {
-            "name": "amp2",
-            "nqueries": 25
-        },
-        {
-            "name": "lamb2",
-            "nqueries": 10
-        },
-
-        {
-            "name": "bo2",
-            "nqueries" : 0
-        },
-        {
-            "name": "bob2",
-            "nqueries" : 5
-        }
-    ];
+        {"name":"amb","nqueries":10},
+        {"name":"amp","nqueries":25},
+        {"name":"amp2","nqueries":25},
+        {"name":"bo2","nqueries":0},
+        {"name":"bo3","nqueries":0},
+        {"name":"bob","nqueries":20},
+        {"name":"bob2","nqueries":5},
+        {"name":"lamb2","nqueries":10}]
     
 
     /* Beacon chip search bar */ 
