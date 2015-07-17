@@ -25,6 +25,10 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			var x = d3.scale.ordinal()
 			    .rangeRoundBands([0, width], .1, 1);
 
+			var tx = d3.scale.linear()
+				.domain([0, 1])
+				.range([0, width]);
+
 			var y = d3.scale.linear()
 			    .range([height, 0]);
 
@@ -69,21 +73,25 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				.text("Queries #");
 
 
-			var bar = svg.selectAll(".bar").data(data).enter(); 
+			var bar = svg.selectAll(".bar")
+				.data(data)
+				.enter().append("g")
+				.attr("class", "bar")
+				.attr("transform", function(d) { 
+					return "translate(" + x(d.name) + "," + y(d.nqueries) + ")"; });
+
 
 			bar.append("rect")
 				.attr("class", "bar")
-				.attr("x", function(d) { return x(d.name); })
+				.attr("x", 1)
 				.attr("width", x.rangeBand())
-				.attr("y", function(d) { return y(d.nqueries); })
 				.attr("height", function(d) { return height - y(d.nqueries); })
 				.attr("fill", barColor);
 
 			bar.append("text")
-				//.attr("dy", ".75em")
-				.attr("y", function(d) { return y(d.nqueries); })
-				.attr("x", function(d) { return x(d.name); })
-				.attr("dx", x(data[0].name)/2)
+				.attr("y", 0)
+				.attr("dy", "-1px")
+				.attr("dx", x.rangeBand()/2 )
 				.attr("text-anchor", "middle")
 				.text(function(d) { return formatCount(d.nqueries); });
 

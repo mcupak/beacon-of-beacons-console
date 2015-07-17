@@ -84,7 +84,20 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
             "nqueries": 25
         },
         {
-            "name": "lamb",
+            "name": "amb",
+            "nqueries": 10
+        },
+
+        {
+            "name": "bo3",
+            "nqueries" : 0
+        },
+        {
+            "name": "amp2",
+            "nqueries": 25
+        },
+        {
+            "name": "lamb2",
             "nqueries": 10
         },
 
@@ -92,7 +105,6 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
             "name": "bo2",
             "nqueries" : 0
         },
-
         {
             "name": "bob2",
             "nqueries" : 5
