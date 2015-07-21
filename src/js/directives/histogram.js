@@ -10,7 +10,8 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 
 			// Aesthetic settings 
 			var margin = {top: 20, right: 50, bottom: 20, left: 50},
-			    width = document.getElementById('performance').clientWidth || 940 - margin.left - margin.right,
+			    width = document.getElementById('performance').clientWidth - margin.left - margin.right || 
+			    		940 - margin.left - margin.right,
 			    height = 500 - margin.top - margin.bottom, 
 			    barColor = "steelblue", 
 			    axisColor = "whitesmoke";
