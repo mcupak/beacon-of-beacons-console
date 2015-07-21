@@ -2,6 +2,9 @@ var app = angular.module('RDash');
 app.directive('donut', ['$parse', '$window', function($parse, $window){
 	return{
 		restrict: "E", 
+		scope: {
+			colors : "="
+		},
 		replace: false,
 		template: "<div class='donut-chart'></div>",
 		link: function(scope, elem, attrs) {
@@ -9,11 +12,13 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			var d3 = $window.d3;
 			
 			// Inputs to the d3 graph 
-			var data = scope[attrs.data],
+			var data = scope[attrs.data] || attrs.data,
 				colors =  scope[attrs.colors],
-				name = scope[attrs.name], 
+				name = scope[attrs.name] || attrs.name, 
 				total = scope.$eval(attrs.nquery);
 			
+
+			console.log(colors);
 			// Pie chart aesthetic settings 
 			var w = 200, 
 				h = 200, 

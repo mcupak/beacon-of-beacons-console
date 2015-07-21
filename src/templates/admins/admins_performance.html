@@ -6,7 +6,24 @@
       Beacon Performance
     </div> -->
 
-  <div class="searchBar">
+
+
+    <div id='performance' class="panel-body">
+    <md-progress-linear md-mode="indeterminate" id="beacon-summary"></md-progress-linear>
+    <md-button class="md-raised sortButton">Sort</md-button>
+    <histogram data="data"></histogram> 
+    </div>
+  </div>
+</div>
+
+<div class="section row variantsPanel">
+  <div class="panel">
+<!--     <div class="panel-heading">
+      Popular Variants 
+    </div> -->
+    <div class="panel-body">
+      <div class="searchBar">
+    
     <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
       <md-autocomplete
           class="auto-complete"
@@ -28,28 +45,10 @@
       <button md-chip-remove="" class="md-primary beaconchip" style="line-height: 0em;">
         <i class="fa fa-times"></i>
       </button>
-
     </md-chips>
-  </div>
-    
 
-    <div id='performance' class="panel-body">
-    <md-progress-linear md-mode="indeterminate" id="beacon-summary"></md-progress-linear>
-    <div ng-repeat="(key, beacon) in summary">
-      <donut data="beacon.nResponse" nquery="beacon.nQuery" name="key" colors="colors"></donut>
-    </div> 
-    <md-button class="md-raised sortButton">Sort</md-button>
-    <histogram data="data"></histogram> 
-    </div>
+    <donut class="example" data="[1,2,3]" nquery="9" name="bob" colors="colors"></donut>
   </div>
-</div>
-
-<div class="col-lg-6 variantsPanel">
-  <div class="panel">
-    <div class="panel-heading">
-      Popular Variants 
-    </div>
-    <div class="panel-body">
     
 
 
