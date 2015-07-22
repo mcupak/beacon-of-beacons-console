@@ -14,7 +14,10 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			    		940 - margin.left - margin.right,
 			    height = 500 - margin.top - margin.bottom, 
 			    barColor = "steelblue", 
-			    axisColor = "whitesmoke";
+			    axisColor = "whitesmoke", 
+			    axisLabelColor = "grey",
+			    yText = "# QUERIES", 
+			    xText = "BEACON IDs";
 
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data];
@@ -60,7 +63,14 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			svg.append("g")
 				.attr("class", "x axis")
 				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis);
+				.call(xAxis)
+				.append("text")
+				.attr("y", 6)
+				.attr("dy", "-0.71em")
+				.attr("x", width - x.rangeBand()/2)
+				.style("text-anchor", "middle")
+				.style("fill", axisLabelColor)
+				.text(xText);
 
 			// Draw y-axis 
 			svg.append("g")
@@ -71,7 +81,8 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				.attr("y", 6)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
-				.text("Queries #");
+				.style("fill", axisLabelColor)
+				.text(yText);
 
 			var bar = svg.selectAll(".bar")
 				.data(data)
