@@ -1,30 +1,12 @@
 /**
  * Beacon performance display controller 
  */
-angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
- function($scope, mockedAPI) {
+angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI", 
+ function($scope, mockedAPI, mockedAPI2) {
 
     // Coloring of the donut charts for [yes, no, null/error]
     $scope.colors = ["green", "red", "orange"];
-    
-    /*
-     *  Groups responses based on beacon
-     */
-    function groupResponsesByBeacon(data) {
 
-        var groupedResponse = {};
-
-        for (var i = 0; i < data.length; i++) {
-            var beaconID = data[i].beacon.id;
-            
-            if (groupedResponse[beaconID] == undefined)
-                groupedResponse[beaconID] = [data[i]];
-            else
-                groupedResponse[beaconID].push(data[i]);
-        }
-        return groupedResponse;
-
-    }
 
     /*
      *  Count number of responses in an array of response object 
@@ -64,26 +46,57 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
 
     }
 
-    // Get beacon response summary 
-    mockedAPI.getQueries().success(function(response){
-        $('#beacon-summary').remove();
-       //var groupedResponse = groupResponsesByBeacon(response);
-       //$scope.summary = summarizeResponse(groupedResponse);
-    });
-
-
     /* Histogram */ 
 
+    // Options to display number of beacons 
+    $scope.opts = ["Top 10", "Top 20", "Top 30", "All"];
+
+    // fake data 
     $scope.data = [
-        {"name":"amb","nqueries":10},
-        {"name":"amp","nqueries":25},
+        {"name":"amb","nqueries":15},
+        {"name":"amp","nqueries":30},
         {"name":"amp2","nqueries":25},
-        {"name":"bo2","nqueries":0},
-        {"name":"bo3","nqueries":0},
+        {"name":"bo2","nqueries":18},
+        {"name":"bo3","nqueries":13},
         {"name":"bob","nqueries":20},
         {"name":"bob2","nqueries":5},
-        {"name":"lamb2","nqueries":10}]
-    
+        {"name":"lamb2","nqueries":10}];
+    $scope.data2 = [
+        {"name":"amb","nqueries":15},
+        {"name":"amp","nqueries":30},
+        {"name":"amp2","nqueries":25},
+        {"name":"bo2","nqueries":18},
+        {"name":"bo3","nqueries":13}];
+
+    $scope.changeData = function(){
+        $scope.data = [
+        {"name":"amb","nqueries":20},
+        {"name":"amp","nqueries":30},
+        {"name":"amp2","nqueries":25},
+        {"name":"bo2","nqueries":18},
+        {"name":"bo3","nqueries":13},
+        {"name":"bob","nqueries":20},
+        {"name":"bob2","nqueries":5},
+        {"name":"lamb2","nqueries":10}, 
+        {"name":"zamb2","nqueries":20}]; 
+
+    }
+
+    // real data 
+    $scope.beaconResponsesN = []; 
+
+    /*
+    * Given a list of beacons, get total number of responses for each beacon 
+    */ 
+    function getQueryCount(beacons){
+        for(i in beacons){
+            mockedAPI.getBeaconResponses(beacons[i].name).then(function(response, status, headers, config ){
+                $scope.beaconResponsesN.push(
+                {"name": response.data[0].beacon.id, "nqueries": response.data.length});
+            });
+        }
+    }
+
 
     /* Beacon chip search bar */ 
     $scope.searchBarText = "Loading..."
@@ -114,7 +127,8 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     }
 
     mockedAPI.getBeacons().success(function(response){
-        console.log(response);
+       console.log(response);
+       getQueryCount(response);
         var beaconInfo = response; 
         for(i in beaconInfo){
             beaconInfo[i]._lowername = beaconInfo[i].id.toLowerCase();
@@ -122,6 +136,7 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
         }
         $scope.beacons = beaconInfo;
 
+        // Update search bar placeholder text 
         $scope.searchBarText = "Search for beacons"; 
 
     });

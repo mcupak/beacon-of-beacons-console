@@ -57,10 +57,23 @@ svg{
 	margin: 2em;
 }
 
-.sortButton{
+.sortButton, .dataButton{
 	float: right;
 }
 
+.status {
+	float: left;
+	padding-left: 15px;
+	font-size: 20px;
+	color: "#BBAAAA";
+}
+
+.display-option{
+	float: left;
+	padding-left: 15px;
+	font-size: 20px;
+	margin-top: -20px;
+}
 .beacon-chips .md-chip {
 	position: relative;
 	padding-right: 35px; 

@@ -6,13 +6,26 @@
       Beacon Performance
     </div> -->
 
+  <div id='performance' class="panel-body">
 
-
-    <div id='performance' class="panel-body">
-    <md-progress-linear md-mode="indeterminate" id="beacon-summary"></md-progress-linear>
-    <md-button class="md-raised sortButton">Sort</md-button>
-    <histogram data="data"></histogram> 
+    <div class="display">    
+      <md-select class="display-option" ng-model="opt" placeholder="Top 10">
+        <md-option ng-repeat="opt in opts" value="{{opt}}">{{ opt }}</md-option>
+      </md-select>
     </div>
+
+    <md-button class="md-raised sortButton">Sort</md-button>
+    <histogram data="data" yText="ID" xText="{{xText}}"></histogram> 
+    
+
+    
+      <div class="status">
+          {{beaconResponsesN.length}}/{{beacons.length}} Beacons Loaded
+      </div>
+      <md-button class="md-raised dataButton" ng-click="changeData()">Add data</md-button>
+    
+  </div>
+
   </div>
 </div>
 
@@ -24,7 +37,7 @@
     <div class="panel-body">
       <div class="searchBar">
     
-    <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
+      <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
       <md-autocomplete
           class="auto-complete"
           md-search-text-change="null"
@@ -45,21 +58,18 @@
       <button md-chip-remove="" class="md-primary beaconchip" style="line-height: 0em;">
         <i class="fa fa-times"></i>
       </button>
-    </md-chips>
+      </md-chips>
 
-    <donut class="example" data="[1,2,3]" nquery="9" name="bob" colors="colors"></donut>
-  </div>
-    
-
-
+      <donut class="example" data="[1,2,3]" nquery="9" name="bob" colors="colors"></donut>
     </div>
+    
   </div>
 </div>
 
 <div class="col-lg-6 beaconsPanel">
   <div class="panel">
     <div class="panel-heading">
-      Popular Beacons 
+      Active Users
     </div>
     <div class="panel-body">
      
