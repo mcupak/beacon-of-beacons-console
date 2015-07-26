@@ -3,7 +3,10 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 	return{
 		restrict: "E", 
 		replace: false,
-		template: "<div class='histogram-chart'></div>",
+		scope: {
+			data : "=data"
+		},
+		template: "<svg class='histogram-chart'></svg>",
 		link: function(scope, elem, attrs) {
 			var exp = $parse(attrs.data);
 			var d3 = $window.d3;
@@ -15,12 +18,14 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			    height = 500 - margin.top - margin.bottom, 
 			    barColor = "steelblue", 
 			    axisColor = "whitesmoke", 
-			    axisLabelColor = "grey",
+			    axisLabelColor = "grey", 
 			    yText = "# QUERIES", 
-			    xText = "BEACON IDs";
+			    xText = "ID";
+
 
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data];
+
 
 			// A formatter for counts.
 			var formatCount = d3.format(",.0f");
@@ -28,10 +33,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			// Set the scale, separate the first bar by a bar width from y-axis
 			var x = d3.scale.ordinal()
 			    .rangeRoundBands([0, width], .1, 1);
-
-			var tx = d3.scale.linear()
-				.domain([0, 1])
-				.range([0, width]);
 
 			var y = d3.scale.linear()
 			    .range([height, 0]);
@@ -46,74 +47,103 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			    .tickFormat(formatCount);
 
 			// Initialize histogram 
-			var svg = d3.select(".histogram-chart").append("svg")
+			var svg = d3.select(".histogram-chart")
 			    .attr("width", width + margin.left + margin.right)
 			    .attr("height", height + margin.top + margin.bottom)
 			  .append("g")
 			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-			data.forEach(function(d) {
-				d.nqueries = +d.nqueries;
-			});
+			function drawAxis(){
 
-			  x.domain(data.map(function(d) { return d.name; }));
-			  y.domain([0, d3.max(data, function(d) { return d.nqueries; })]);
+				
+				data.forEach(function(d) {
+					d.nqueries = +d.nqueries;
+				});
 
-			// Draw x-axis 
-			svg.append("g")
-				.attr("class", "x axis")
-				.attr("transform", "translate(0," + height + ")")
-				.call(xAxis)
-				.append("text")
-				.attr("y", 6)
-				.attr("dy", "-0.71em")
-				.attr("x", width - x.rangeBand()/2)
-				.style("text-anchor", "middle")
-				.style("fill", axisLabelColor)
-				.text(xText);
+				x.domain(data.map(function(d) { return d.name; }));
+				y.domain([0, d3.max(data, function(d) { return d.nqueries; })]);
 
-			// Draw y-axis 
-			svg.append("g")
-				.attr("class", "y axis")
-				.call(yAxis)
-				.append("text")
-				.attr("transform", "rotate(-90)")
-				.attr("y", 6)
-				.attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.style("fill", axisLabelColor)
-				.text(yText);
+				// Draw x-axis 
+				svg.append("g")
+					.attr("class", "x-axis")
+					.attr("transform", "translate(0," + height + ")")
+					.call(xAxis)
+					.append("text")
+					.attr("y", 6)
+					.attr("dy", "-0.71em")
+					.attr("x", width )
+					.style("text-anchor", "end")
+					.style("fill", axisLabelColor)
+					.text(xText);
 
-			var bar = svg.selectAll(".bar")
-				.data(data)
-				.enter().append("g")
-				.attr("class", "bar");
+				// Draw y-axis 
+				svg.append("g")
+					.attr("class", "y-axis")
+					.call(yAxis)
+					.append("text")
+					.attr("transform", "rotate(-90)")
+					.attr("y", 6)
+					.attr("dy", ".71em")
+					.style("text-anchor", "end")
+					.style("fill", axisLabelColor)
+					.text(yText);
 
-			bar.append("rect")
-				.attr("class", "bar")
-				.attr("x", function(d){ return x(d.name) })
-				.attr("width", x.rangeBand())
-				.attr("y", function(d){ return y(d.nqueries) })
-				.attr("height", function(d) { return height - y(d.nqueries); })
-				.attr("fill", barColor);
+				// Change axis color 
+				d3.selectAll("path").attr("fill", axisColor);
+			}
 
-			bar.append("text")
-				.attr("y", function(d){ return y(d.nqueries) })
-				.attr("x", function(d){ return x(d.name) })
-				.attr("dy", "-1px")
-				.attr("dx", x.rangeBand()/2 )
-				.attr("text-anchor", "middle")
-				.attr("class", "numberLabel")
-				.text(function(d) { return formatCount(d.nqueries); });
+			function updateAxis(){
+				
+				data.forEach(function(d) {
+					d.nqueries = +d.nqueries;
+				});
 
-			// Change axis color 
-			d3.selectAll("path").attr("fill", axisColor);
+				x.domain(data.map(function(d) { return d.name; }));
+				y.domain([0, d3.max(data, function(d) { return d.nqueries; })]);
 
-			// Render the graph when data is changed. 
-			// scope.$watchCollection(exp, function(newCollection, oldCollection, scope) {
-			// 	data = newCollection;
-			// 	drawHistogram();
-			// });
+				svg.selectAll("g.y-axis").transition().call(yAxis);
+				svg.selectAll("g.x-axis").transition().call(xAxis);
+
+			}
+
+			function updateHistogram(){
+                
+				// Redefine scale and update axis 
+                if (!d3.select('g.y-axis').node())
+                    drawAxis();
+                else                
+                    updateAxis(); 
+
+				// Select 
+                var bar = svg.selectAll(".barInfo").data(data);
+                
+                var bEnter = bar.enter().append("g")
+					.attr("class", "barInfo");
+                
+                bEnter.append("rect")
+					.attr("class", "bar");
+                
+                bEnter.append("text")
+                    .attr("class","numberLabel");
+
+                // Update 
+                bar.select("rect").transition()
+                	.attr("fill", barColor)
+                    .attr("x", function(d){ return x(d.name) })
+					.attr("width", x.rangeBand())
+					.attr("y", function(d){ return y(d.nqueries) })
+					.attr("height", function(d) { return height - y(d.nqueries); });
+                
+                bar.select("text").transition()
+                    .attr("y", function(d){ return y(d.nqueries) })
+					.attr("x", function(d){ return x(d.name) })
+					.attr("dy", "-1px")
+					.attr("dx", x.rangeBand()/2 )
+					.attr("text-anchor", "middle")
+					.attr("class", "numberLabel")
+					.text(function(d) { return formatCount(d.nqueries); });               
+                    
+			}
 
 
 			var sortByVal = false; 
@@ -121,8 +151,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				sortByVal = !sortByVal;
 				change(sortByVal);
 			});
-
-			d3.select("sortSwitch").on("change", change);
 
 			var sortTimeout = setTimeout(1000);
 
@@ -143,12 +171,23 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				    .delay(delay)
 				    .attr("x", function(d) { return x0(d.name); });
 
-				transition.select(".x.axis")
+				transition.select(".x-axis")
 				    .call(xAxis)
 				  .selectAll("g")
 				    .delay(delay);
-				}
-
 			}
+
+
+				// Re-render the graph when data is changed. 
+			scope.$watch(exp, function(newCollection, oldCollection, scope) {
+				console.log(data);
+				data = newCollection;
+				updateHistogram();
+
+			});
+
+		}
+
+
 	};
 }]);
