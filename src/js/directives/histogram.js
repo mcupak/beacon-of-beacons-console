@@ -16,7 +16,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			    height = 500 - margin.top - margin.bottom, 
 			    axisColor = "whitesmoke", 
 			    axisLabelColor = "grey"; 
-			    console.log(width);
 
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data], 
@@ -87,7 +86,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 					.text(yText);
 
 				// Change axis color 
-				d3.selectAll("path").attr("fill", axisColor);
+				svg.selectAll("path").attr("fill", axisColor);
 			}
 
 			function updateAxis(){
