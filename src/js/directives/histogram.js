@@ -3,30 +3,28 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 	return{
 		restrict: "E", 
 		replace: false,
-		scope: {
-			data : "=data"
-		},
-		template: "<svg class='histogram-chart'></svg>",
+		scope: true,
+		template: "<div class='histogram-chart'></div>",
 		link: function(scope, elem, attrs) {
 			var exp = $parse(attrs.data);
 			var d3 = $window.d3;
 
 			// Aesthetic settings 
 			var margin = {top: 20, right: 50, bottom: 20, left: 50},
-			    width = document.getElementById('performance').clientWidth - margin.left - margin.right || 
+			    width = elem.parent()[0].offsetWidth - margin.left - margin.right || 
 			    		940 - margin.left - margin.right,
 			    height = 500 - margin.top - margin.bottom, 
-			    barColor = "steelblue", 
 			    axisColor = "whitesmoke", 
-			    axisLabelColor = "grey", 
-			    yText = "# QUERIES", 
-			    xText = "ID";
-
+			    axisLabelColor = "grey"; 
+			    console.log(width);
 
 			// Inputs to the d3 graph 
-			var data = scope[attrs.data];
-
-
+			var data = scope[attrs.data], 
+				yText = scope[attrs.y] || attrs.y || "# QUERIES",
+			    xText = scope[attrs.x] || attrs.x || "IDs", 
+			    barColor = scope[attrs.color] || attrs.color || "steelblue", 
+			    buttonName = scope[attrs.info] || attrs.info || ".sortButton";
+			
 			// A formatter for counts.
 			var formatCount = d3.format(",.0f");
 
@@ -47,7 +45,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			    .tickFormat(formatCount);
 
 			// Initialize histogram 
-			var svg = d3.select(".histogram-chart")
+			var svg = d3.select(elem[0]).append("svg").attr("class", "histogram-chart")
 			    .attr("width", width + margin.left + margin.right)
 			    .attr("height", height + margin.top + margin.bottom)
 			  .append("g")
@@ -109,7 +107,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			function updateHistogram(){
                 
 				// Redefine scale and update axis 
-                if (!d3.select('g.y-axis').node())
+                if (!svg.select('g.y-axis').node())
                     drawAxis();
                 else                
                     updateAxis(); 
@@ -147,7 +145,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 
 
 			var sortByVal = false; 
-			d3.select(".sortButton").on("click", function(){
+			d3.select(buttonName).on("click", function(){
 				sortByVal = !sortByVal;
 				change(sortByVal);
 			});
@@ -180,7 +178,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 
 				// Re-render the graph when data is changed. 
 			scope.$watch(exp, function(newCollection, oldCollection, scope) {
-				console.log(data);
 				data = newCollection;
 				updateHistogram();
 
