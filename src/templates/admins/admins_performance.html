@@ -15,10 +15,8 @@
     </div>
 
     <md-button class="md-raised sortButton">Sort</md-button>
-    <histogram data="data" yText="ID" xText="{{xText}}"></histogram> 
-    
+    <histogram data="data" y="# Queries" x="BEACON IDs"></histogram> 
 
-    
       <div class="status">
           {{beaconResponsesN.length}}/{{beacons.length}} Beacons Loaded
       </div>
@@ -29,52 +27,79 @@
   </div>
 </div>
 
-<div class="section row variantsPanel">
+
+
+
+
+
+
+
+<div class="section row">
   <div class="panel">
 <!--     <div class="panel-heading">
       Popular Variants 
     </div> -->
     <div class="panel-body">
-      <div class="searchBar">
-    
-      <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
-      <md-autocomplete
-          class="auto-complete"
-          md-search-text-change="null"
-          md-selected-item-change=""
-          md-selected-item="selectedItem"
-          md-search-text="searchText"
-          md-items="item in querySearch(searchText)"
-          md-item-text="item.name"
-          placeholder={{searchBarText}}>
-        <span md-highlight-text="searchText">{{item.name}} :: {{item.organization.id}}</span>
-      </md-autocomplete>
-      <md-chip-template>
-        <span>
-          <strong>{{$chip.name}}</strong>
-          <em>({{$chip.organization.id}})</em>
-        </span>
-      </md-chip-template>
-      <button md-chip-remove="" class="md-primary beaconchip" style="line-height: 0em;">
-        <i class="fa fa-times"></i>
-      </button>
-      </md-chips>
+      <div class="col-lg-2 visual">
+        <donut class="example" data="[2,2,3]" nquery="10" name="queries" colors="colors">
+      </div>
 
-      <donut class="example" data="[1,2,3]" nquery="9" name="bob" colors="colors"></donut>
+    <div class="filter col-lg-10">  
+      <div class="searchBar">  
+        <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
+        <md-autocomplete
+            class="auto-complete"
+            md-search-text-change="null"
+            md-selected-item-change=""
+            md-selected-item="selectedItem"
+            md-search-text="searchText"
+            md-items="item in querySearch(searchText)"
+            md-item-text="item.name"
+            placeholder={{searchBarText}}>
+          <span md-highlight-text="searchText">{{item.name}} :: {{item.organization.id}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+          <span>
+            <strong>{{$chip.name}}</strong>
+            <em>({{$chip.organization.id}})</em>
+          </span>
+        </md-chip-template>
+        <button md-chip-remove="" class="md-primary beaconchip" style="line-height: 0em;">
+          <i class="fa fa-times"></i>
+        </button>
+        </md-chips>
+      </div>
+
+
     </div>
-    
+
   </div>
 </div>
 
-<div class="col-lg-6 beaconsPanel">
+<div class="section row">
   <div class="panel">
-    <div class="panel-heading">
+<!--     <div class="panel-heading">
       Active Users
-    </div>
+    </div> -->
     <div class="panel-body">
-     
+      <div class="col-lg-6 visual">
+         <md-button class="md-raised sortGeneButton">Sort</md-button>
+         <histogram data="data" y="# Queries" x="Genes" color="rgb(103, 91, 191)" info=".sortGeneButton"></histogram> 
+      </div>
+
+      <div class="col-lg-6">
+        Filter Settings
+      </div>
     </div>
+      
+
   </div>
 </div>
+
+
+
+
+
+
 </div>
 
