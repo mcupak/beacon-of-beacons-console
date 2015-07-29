@@ -11,48 +11,47 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 
 			// Aesthetic settings 
 			var margin = {top: 20, right: 50, bottom: 20, left: 50},
-			    width = elem.parent()[0].offsetWidth - margin.left - margin.right || 
-			    		940 - margin.left - margin.right,
-			    height = 500 - margin.top - margin.bottom, 
-			    axisColor = "whitesmoke", 
-			    axisLabelColor = "grey"; 
+				width = elem.parent()[0].offsetWidth - margin.left - margin.right || 
+					940 - margin.left - margin.right,
+				height = 500 - margin.top - margin.bottom, 
+				axisColor = "whitesmoke", 
+				axisLabelColor = "grey"; 
 
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data], 
-				yText = scope[attrs.y] || attrs.y || "# QUERIES",
-			    xText = scope[attrs.x] || attrs.x || "IDs", 
-			    barColor = scope[attrs.color] || attrs.color || "steelblue", 
-			    buttonName = scope[attrs.info] || attrs.info || ".sortButton";
+				yText = scope[attrs.ytext] || attrs.ytext || "# QUERIES",
+				xText = scope[attrs.xtext] || attrs.xtext || "IDs", 
+				barColor = scope[attrs.color] || attrs.color || "steelblue", 
+				buttonClassName = scope[attrs.button] || attrs.button || "sortButton";
 			
 			// A formatter for counts.
 			var formatCount = d3.format(",.0f");
 
 			// Set the scale, separate the first bar by a bar width from y-axis
 			var x = d3.scale.ordinal()
-			    .rangeRoundBands([0, width], .1, 1);
+				.rangeRoundBands([0, width], .1, 1);
 
 			var y = d3.scale.linear()
-			    .range([height, 0]);
+				.range([height, 0]);
 
 			var xAxis = d3.svg.axis()
-			    .scale(x)
-			    .orient("bottom");
+				.scale(x)
+				.orient("bottom");
 
 			var yAxis = d3.svg.axis()
-			    .scale(y)
-			    .orient("left")
-			    .tickFormat(formatCount);
+				.scale(y)
+				.orient("left")
+				.tickFormat(formatCount);
 
 			// Initialize histogram 
 			var svg = d3.select(elem[0]).append("svg").attr("class", "histogram-chart")
-			    .attr("width", width + margin.left + margin.right)
-			    .attr("height", height + margin.top + margin.bottom)
-			  .append("g")
-			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 			function drawAxis(){
 
-				
 				data.forEach(function(d) {
 					d.nqueries = +d.nqueries;
 				});
@@ -104,47 +103,47 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			}
 
 			function updateHistogram(){
-                
+
 				// Redefine scale and update axis 
-                if (!svg.select('g.y-axis').node())
-                    drawAxis();
-                else                
-                    updateAxis(); 
+				if (!svg.select('g.y-axis').node())
+					drawAxis();
+				else
+					updateAxis(); 
 
 				// Select 
-                var bar = svg.selectAll(".barInfo").data(data);
-                
-                var bEnter = bar.enter().append("g")
-					.attr("class", "barInfo");
-                
-                bEnter.append("rect")
-					.attr("class", "bar");
-                
-                bEnter.append("text")
-                    .attr("class","numberLabel");
+				var bar = svg.selectAll(".barInfo").data(data);
 
-                // Update 
-                bar.select("rect").transition()
-                	.attr("fill", barColor)
-                    .attr("x", function(d){ return x(d.name) })
+				var bEnter = bar.enter().append("g")
+					.attr("class", "barInfo");
+
+				bEnter.append("rect")
+					.attr("class", "bar");
+
+				bEnter.append("text")
+					.attr("class","numberLabel");
+
+				// Update 
+				bar.select("rect").transition()
+					.attr("fill", barColor)
+					.attr("x", function(d){ return x(d.name) })
 					.attr("width", x.rangeBand())
 					.attr("y", function(d){ return y(d.nqueries) })
 					.attr("height", function(d) { return height - y(d.nqueries); });
-                
-                bar.select("text").transition()
-                    .attr("y", function(d){ return y(d.nqueries) })
+
+				bar.select("text").transition()
+					.attr("y", function(d){ return y(d.nqueries) })
 					.attr("x", function(d){ return x(d.name) })
 					.attr("dy", "-1px")
 					.attr("dx", x.rangeBand()/2 )
 					.attr("text-anchor", "middle")
 					.attr("class", "numberLabel")
 					.text(function(d) { return formatCount(d.nqueries); });               
-                    
+
 			}
 
 
 			var sortByVal = false; 
-			d3.select(buttonName).on("click", function(){
+			d3.select('.' + buttonClassName).on("click", function(){
 				sortByVal = !sortByVal;
 				change(sortByVal);
 			});
@@ -154,24 +153,23 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			function change(sortByVal) {
 				clearTimeout(sortTimeout);
 
-				// Copy-on-write since tweens are evaluated after a delay.
 				var x0 = x.domain(data.sort(sortByVal
-				    ? function(a, b) { return b.nqueries - a.nqueries; }
-				    : function(a, b) { return d3.ascending(a.name, b.name); })
-				    .map(function(d) { return d.name; }))
-				    .copy();
+					? function(a, b) { return b.nqueries - a.nqueries; }
+					: function(a, b) { return d3.ascending(a.name, b.name); })
+					.map(function(d) { return d.name; }))
+					.copy();
 
 				var transition = svg.transition().duration(750),
-				    delay = function(d, i) { return i * 50; };
+					delay = function(d, i) { return i * 50; };
 
 				transition.selectAll([".bar", ".numberLabel"])
-				    .delay(delay)
-				    .attr("x", function(d) { return x0(d.name); });
+					.delay(delay)
+					.attr("x", function(d) { return x0(d.name); });
 
 				transition.select(".x-axis")
-				    .call(xAxis)
-				  .selectAll("g")
-				    .delay(delay);
+					.call(xAxis)
+					.selectAll("g")
+					.delay(delay);
 			}
 
 
