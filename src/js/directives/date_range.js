@@ -23,20 +23,20 @@ app.directive('daterange', function () {
         template: 
             '<div class="date-range-selector">' + 
             '<div class="date-start col-lg-6">' +
-                '<div style="float:left; padding:10px">From </div>' + 
+                '<div style="float:left; padding:5px; font-size:20px;">From </div>' + 
                 '<div class="input-group">' +
                   '<input ng-model="startdate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" is-open="opened" min-date="mindate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
-                    '<button ng-click="openStartCalendar()" type="button" class="buttonstart btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
+                    '<button ng-click="openStartCalendar($event)" type="button" class="buttonstart btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
                   '</span>' +
                 '</div>' + 
             '</div>' + 
             '<div class="date-end col-lg-6">' +
-                '<div style="float:left; padding:10px">To </div>' + 
+                '<div style="float:left; padding:5px; font-size:20px;">To </div>' + 
                 '<div class="input-group">' +
                   '<input ng-model="enddate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" is-open="opened2" min-date="minEndDate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
-                    '<button ng-click="openEndCalendar()" type="button" class="buttonend btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
+                    '<button ng-click="openEndCalendar($event)" type="button" class="buttonend btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
                   '</span>' +
                 '</div>' + 
             '</div>' + 
@@ -54,16 +54,16 @@ app.directive('daterange', function () {
             };
 
             // Open the first calendar for start date 
-            scope.openStartCalendar = function(){
-                event.preventDefault();
-                event.stopPropagation();
+            scope.openStartCalendar = function($event){
+                $event.preventDefault();
+                $event.stopPropagation();
                 scope.opened = true;
             };
 
             // Open the second calendar for end date 
-            scope.openEndCalendar = function(){
-                event.preventDefault();
-                event.stopPropagation();
+            scope.openEndCalendar = function($event){
+                $event.preventDefault();
+                $event.stopPropagation();
                 scope.opened2 = true;
             };
 
