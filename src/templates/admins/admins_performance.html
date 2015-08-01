@@ -2,9 +2,9 @@
 
 <div class="section row">
   <div class="panel">
-<!--     <div class="panel-heading">
-      Beacon Performance
-    </div> -->
+    <div class="panel-heading admin-console-title">
+      Beacon Usage
+    </div>
 
   <div id='performance' class="panel-body">
 
@@ -15,7 +15,7 @@
     </div>
 
     <md-button class="md-raised sortButton">Sort</md-button>
-    <histogram data="data" y="# Queries" x="BEACON IDs"></histogram> 
+    <histogram data="data" ytext="# Queries" xtext="BEACON IDs" button="sortButton"></histogram> 
 
       <div class="status">
           {{beaconResponsesN.length}}/{{beacons.length}} Beacons Loaded
@@ -28,17 +28,11 @@
 </div>
 
 
-
-
-
-
-
-
 <div class="section row">
   <div class="panel">
-<!--     <div class="panel-heading">
-      Popular Variants 
-    </div> -->
+    <div class="panel-heading admin-console-title">
+      Beacon Response Breakdown 
+    </div>
     <div class="panel-body">
       <div class="col-lg-2 visual">
         <donut class="example" data="[2,2,3]" nquery="10" name="queries" colors="colors">
@@ -68,8 +62,10 @@
           <i class="fa fa-times"></i>
         </button>
         </md-chips>
-      </div>
-
+        </div>
+       
+      
+        
 
     </div>
 
@@ -78,23 +74,62 @@
 
 <div class="section row">
   <div class="panel">
-<!--     <div class="panel-heading">
-      Active Users
-    </div> -->
+    <div class="panel-heading admin-console-title">
+      Users Leader Board 
+    </div>
     <div class="panel-body">
       <div class="col-lg-6 visual">
          <md-button class="md-raised sortGeneButton">Sort</md-button>
-         <histogram data="data" y="# Queries" x="Genes" color="rgb(103, 91, 191)" info=".sortGeneButton"></histogram> 
+         <histogram data="data" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
       </div>
 
       <div class="col-lg-6">
-        Filter Settings
+        
+
       </div>
     </div>
       
 
   </div>
 </div>
+
+<div class="section row">
+  <div class="panel">
+    <div class="panel-heading admin-console-title">
+      Popular Genes 
+    </div>
+    <div class="panel-body">
+      <div class="col-lg-6 visual">
+         <md-button class="md-raised sortUserButton">Sort</md-button>
+         <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortUserButton"></histogram> 
+      </div>
+
+      <div class="col-lg-6">
+       
+
+      </div>
+    </div>
+      
+
+  </div>
+</div>
+
+
+<div class="section row">
+  <div class="panel">
+
+    <div class="panel-heading">
+      Test bed
+    </div>
+
+    <div class="panel-body">
+
+    </div>
+      
+
+  </div>
+</div>
+
 
 
 

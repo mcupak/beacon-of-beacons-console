@@ -43,19 +43,22 @@ h2.title{
 }
 
 
-/* Beacon performance page */ 
+/* ==== Beacon performance page ==== */ 
 
-.variantsPanel{
-	padding-left: 0px;
-}
 
-.beaconsPanel{
-	padding-right: 0px;
-}
-
+/* Shared */
 svg{
 	margin: 2em;
 }
+
+.admin-console-title{
+	font-size: 25px;
+  	background-color: inherit;
+  	border: none;
+  	color: rgb(156, 153, 153);
+  	text-align: center;
+}
+
 
 .sortButton, .dataButton{
 	float: right;
@@ -114,7 +117,7 @@ svg{
 
 
 .searchBar{
-	margin: 30px;
+	margin: 15px;
 }
 
 .searchBar button{
