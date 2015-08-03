@@ -26,10 +26,11 @@
     "angular-cookies": "1.4.0",
     "angular-bootstrap": "~0.11.0",
     "angular-ui-router": "^0.2.10",
-    "bootstrap": "~3.2.0",
+    "bootstrap": "3.2.0",
     "font-awesome": "~4.3.0",
     "bootstrap-select": "~1.7.2",
-    "angular-material": "0.9.4"
+    "angular-material": "0.9.4",
+    "jquery": "2.1.4"
   },
   "repository": {
     "type": "git",
