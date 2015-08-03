@@ -8,20 +8,40 @@
 
   <div id='performance' class="panel-body">
 
-    <div class="display">    
-      <md-select class="display-option" ng-model="opt" placeholder="Top 10">
-        <md-option ng-repeat="opt in opts" value="{{opt}}">{{ opt }}</md-option>
-      </md-select>
+    <div class="bu-control">
+
+      <div class="col-lg-2 option-selector">
+        <select class="selectpicker">
+          <option>Top 10</option>
+          <option>Top 20</option>
+          <option>Top 30</option>
+          <option>All</option>
+        </select>    
+      </div>
+
+      <div class="col-lg-8">
+        <daterange startdate="BUdate1" enddate="BUdate2" maxdate="today"></daterange>
+      </div>
+
+      <div class="col-lg-2">
+        <md-button class="md-raised chart-update-button">Update</md-button>
+      </div>
+
     </div>
 
-    <md-button class="md-raised sortButton">Sort</md-button>
-    <histogram data="data" ytext="# Queries" xtext="BEACON IDs" button="sortButton"></histogram> 
-
-      <div class="status">
-          {{beaconResponsesN.length}}/{{beacons.length}} Beacons Loaded
-      </div>
-      <md-button class="md-raised dataButton" ng-click="changeData()">Add data</md-button>
+    <div class="chart">
+      <histogram data="data" ytext="# Queries" xtext="BEACON IDs" button="sortButton"></histogram> 
+    </div>
     
+    <div>
+      <md-button class="md-raised chart-sort-button sortButton">Sort</md-button>
+    </div>
+
+    <div class="status">
+        {{beaconResponsesN.length}}/{{beacons.length}} Beacons Loaded
+    </div>
+
+
   </div>
 
   </div>
@@ -39,7 +59,7 @@
       </div>
 
     <div class="filter col-lg-10">  
-      <div class="searchBar">  
+      <div class="searchBar col-lg-12">  
         <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
         <md-autocomplete
             class="auto-complete"
@@ -62,30 +82,69 @@
           <i class="fa fa-times"></i>
         </button>
         </md-chips>
-        </div>
+      </div>
        
-      
-        
+      <div class="col-lg-7">
+         <daterange startdate="BRdate1" enddate="BRdate2" maxdate="today"></daterange>
+      </div>
+
+     
+      <div class="col-lg-2 option-selector"> 
+        <span style="margin-right: 5px;"> Chromsome:  </span>
+        <select ng-model="chr" class="selectpicker" data-width="auto">
+          <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+            {{chromosome}}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-2 option-selector">
+        <span style="margin-right: 5px;"> Allele:  </span>
+        <select ng-model="allele" class="selectpicker" data-width="auto">
+          <option value="A">A</option>
+          <option value="T">T</option>
+          <option value="C">C</option>
+          <option value="G">G</option>
+        </select>
+      </div>
+      <div class="col-lg-1">
+        <md-button class="md-raised chart-update-button">Update</md-button>
+      </div>
+       
 
     </div>
 
   </div>
 </div>
 
-<div class="section row">
+<div class="section col-lg-5">
   <div class="panel">
     <div class="panel-heading admin-console-title">
       Users Leader Board 
     </div>
     <div class="panel-body">
-      <div class="col-lg-6 visual">
-         <md-button class="md-raised sortGeneButton">Sort</md-button>
-         <histogram data="data" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
+      
+      <div class="ul-contrl">      
+        <div class="col-lg-10">
+           <daterange startdate="ULdate1" enddate="ULdate2" maxdate="today"></daterange>
+        </div>
+        <div class="col-lg-2">
+          <md-button class="md-raised chart-update-button">Update</md-button>
+        </div>
       </div>
 
-      <div class="col-lg-6">
-        
-
+      <div class="">
+        <table class="table table-striped user-board">
+          <thead>
+            <tr>
+              <th class="user-id">User ID</th>
+              <th># Queries</th>
+            <tr>
+          </thead>
+            <tr ng-repeat="d in data">
+              <td class="user-id">{{d.name}}</td>
+              <td>{{d.nqueries}}</td>
+            </tr>
+        </table>
       </div>
     </div>
       
@@ -93,15 +152,26 @@
   </div>
 </div>
 
-<div class="section row">
+<div class="section col-lg-7">
   <div class="panel">
     <div class="panel-heading admin-console-title">
       Popular Genes 
     </div>
     <div class="panel-body">
-      <div class="col-lg-6 visual">
-         <md-button class="md-raised sortUserButton">Sort</md-button>
-         <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortUserButton"></histogram> 
+
+      <div class="pg-contrl">      
+        <div class="col-lg-10">
+           <daterange startdate="PGdate1" enddate="PGdate2" maxdate="today"></daterange>
+        </div>
+        <div class="col-lg-2">
+          <md-button class="md-raised chart-update-button">Update</md-button>
+        </div>
+      </div>
+
+
+      <div class="visual">
+         <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
+         <md-button class="md-raised chart-sort-but sortGeneButton">Sort</md-button>
       </div>
 
       <div class="col-lg-6">
@@ -115,20 +185,7 @@
 </div>
 
 
-<div class="section row">
-  <div class="panel">
 
-    <div class="panel-heading">
-      Test bed
-    </div>
-
-    <div class="panel-body">
-
-    </div>
-      
-
-  </div>
-</div>
 
 
 

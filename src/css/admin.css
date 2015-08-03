@@ -59,13 +59,35 @@ svg{
   	text-align: center;
 }
 
+.chart-sort-button{
+	float: left;
+}
 
-.sortButton, .dataButton{
+.chart-update-button {
 	float: right;
+	margin-top: 0px;
+	font-size: 17px;
+}
+.option-selector{
+	float: left;
+}
+
+.selectpicker option{
+	font-size: 17px;
+}
+
+.selectpicker > * {
+	width: inherit;
+}
+
+/* Histogram */ 
+
+.bu-control{
+	font-size: 15px;
 }
 
 .status {
-	float: left;
+	float: right;
 	padding-left: 15px;
 	font-size: 20px;
 	color: "#BBAAAA";
@@ -77,6 +99,8 @@ svg{
 	font-size: 20px;
 	margin-top: -20px;
 }
+
+/* Chips */ 
 .beacon-chips .md-chip {
 	position: relative;
 	padding-right: 35px; 
@@ -115,7 +139,6 @@ svg{
 	background: rgba(180, 0, 0, 0.7); 
 }
 
-
 .searchBar{
 	margin: 15px;
 }
@@ -123,3 +146,13 @@ svg{
 .searchBar button{
 	color: rgb(224, 224, 224);
 }
+
+/* Table  */ 
+.user-board{
+	font-size: 20px;
+}
+
+.user-id {
+	text-align: center;
+}
+

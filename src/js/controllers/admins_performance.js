@@ -2,11 +2,18 @@
  * Beacon performance display controller 
  */
 angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI", 
- function($scope, mockedAPI, mockedAPI2) {
+ function($scope, mockedAPI) {
 
     // Coloring of the donut charts for [yes, no, null/error]
     $scope.colors = ["green", "red", "orange"];
 
+    $scope.chromosomes = ["CHR1","CHR2","CHR3","CHR4","CHR5","CHR6","CHR7","CHR8",
+                            "CHR9","CHR10","CHR11","CHR12","CHR13","CHR14","CHR15",
+                            "CHR16","CHR17","CHR18","CHR19","CHR20","CHR21",
+                            "CHR22","X","Y","MT"];
+
+    $scope.chr = $scope.chromosomes[0];
+    $scope.allele = "A";
 
     /*
      *  Count number of responses in an array of response object 
@@ -90,9 +97,11 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     */ 
     function getQueryCount(beacons){
         for(i in beacons){
-            mockedAPI.getBeaconResponses(beacons[i].name).then(function(response, status, headers, config ){
+            mockedAPI.getBeaconResponses(beacons[i].name).then(function(response, 
+                status, headers, config ){
                 $scope.beaconResponsesN.push(
-                {"name": response.data[0].beacon.id, "nqueries": response.data.length});
+                {"name": response.data[0].beacon.id, 
+                "nqueries": response.data.length});
             });
         }
     }
@@ -132,7 +141,7 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
         var beaconInfo = response; 
         for(i in beaconInfo){
             beaconInfo[i]._lowername = beaconInfo[i].id.toLowerCase();
-            beaconInfo[i]._lowertype = beaconInfo[i].organization.id.toLowerCase();                
+            beaconInfo[i]._lowertype = beaconInfo[i].organization.id.toLowerCase();
         }
         $scope.beacons = beaconInfo;
 
@@ -142,4 +151,18 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     });
 
 
+
+
+
+    
+    $scope.printDate = function(){
+        console.log("date1: " +  $scope.date1);
+        console.log("date2: " +  $scope.date2)
+    }
+
+    $scope.today = new Date();
+
+
+
 }]);
+
