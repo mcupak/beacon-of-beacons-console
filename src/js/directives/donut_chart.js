@@ -12,8 +12,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			// Inputs to the d3 graph 
 			var data = scope[attrs.data] || attrs.data,
 				colors =  scope[attrs.colors],
-				name = scope[attrs.name] || attrs.name, 
-				total = scope.$eval(attrs.nquery);
+				name = scope[attrs.name] || attrs.name; 
 
 			// Pie chart aesthetic settings 
 			var w = 200, 
@@ -36,15 +35,15 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 						.attr("width", w)
 						.attr("height", h);
 
-			// Append and styling title and number
+			// Append and styling title and total 
 			var title = svg.append("text")
 					.attr("y", h / 2)
 					.attr("x", w / 2)
 					.attr("text-anchor", "middle")
 					.style("font-family", "Roboto")
 					.style("font-size", titleFontSize + 'px')
-					.style("fill", "#888")
-					.text(name);
+					.style("fill", "#888");
+
 
 			var total = svg.append("text")
 				.attr("y", h / 2 + titleSeparation)
@@ -52,32 +51,47 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				.attr("text-anchor", "middle")
 				.style("font-family", "Roboto")
 				.style("font-size", sumFontSize + 'px')
-				.style("fill", "#888")
-				.text(total);
+				.style("fill", "#888");
+
+			function getTotal(array){
+				var sum = 0;
+				for (i in array){ sum += array[i];}
+				return sum; 
+			}
+
+			
 
 			function drawDonut(){
 
-				var sum = 0;
-				for(i in data){ sum += data[i]; }
+				title.text(name);
+
+				var sum = getTotal(data);
+				total.text(sum);
 
 				var percentages = [];
 				for (i in data){ percentages.push(Math.floor(data[i]/sum * 100))}
 
-				// Set up groups
+				// Selection 
 				var arcs = svg.selectAll("g.arc")
-							  .data(pie(percentages))
-							  .enter()
+							  .data(pie(percentages));
+
+				var arcsEnter = arcs.enter()
 							  .append("g")
 							  .attr("class", "arc")
 							  .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
 				
+				// Add new arcs 
+				arcsEnter.append("path");
+				arcsEnter.append("text"); 
+
+
 				// Draw arc paths
-				arcs.append("path")
+				arcs.select("path")
 				    .attr("fill", function(d, i){ return colors[i]; })
 				    .attr("d", arc);
 				
 				// Percentage label
-				arcs.append("text")
+				arcs.select("text")
 				    .attr("transform", function(d){ return "translate(" + arc.centroid(d) + ")"; })
 				    .attr("dy", ".35em")
 				    .attr("text-anchor", "middle")
@@ -85,12 +99,16 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				    .style("fill", "white")
 				    .text(function(d){ return (d.value <= 0 ? ' ' : d.value); });
 
+				// Remove
+				arcs.exit().remove();
+
 			}
 
 			// Render the graph when data is changed. 
 			scope.$watchCollection(exp, function(newCollection, oldCollection, scope) {
 				data = newCollection;
 				drawDonut();
+				console.log("data changed!");
 			});
 
 
