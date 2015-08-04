@@ -20,7 +20,7 @@
       </div>
 
       <div class="col-lg-8">
-        <daterange startdate="BUdate1" enddate="BUdate2" maxdate="today"></daterange>
+        <daterange startdate="BUdate1" enddate="BUdate2" maxdate="today" format="format"></daterange>
       </div>
 
       <div class="col-lg-2">
@@ -55,7 +55,7 @@
     </div>
     <div class="panel-body">
       <div class="col-lg-2 visual">
-        <donut class="example" data="[2,2,3]" nquery="10" name="queries" colors="colors">
+        <donut class="example" data="donutData" nquery="10" name="queries" colors="colors">
       </div>
 
     <div class="filter col-lg-10">  
@@ -85,7 +85,7 @@
       </div>
        
       <div class="col-lg-7">
-         <daterange startdate="BRdate1" enddate="BRdate2" maxdate="today"></daterange>
+         <daterange startdate="BRdate1" enddate="BRdate2" maxdate="today" format="format"></daterange>
       </div>
 
      
@@ -100,10 +100,8 @@
       <div class="col-lg-2 option-selector">
         <span style="margin-right: 5px;"> Allele:  </span>
         <select ng-model="allele" class="selectpicker" data-width="auto">
-          <option value="A">A</option>
-          <option value="T">T</option>
-          <option value="C">C</option>
-          <option value="G">G</option>
+          <option ng-repeat="allele in alleles" value="{{allele}}">
+            {{allele}}
         </select>
       </div>
       <div class="col-lg-1">
@@ -125,7 +123,7 @@
       
       <div class="ul-contrl">      
         <div class="col-lg-10">
-           <daterange startdate="ULdate1" enddate="ULdate2" maxdate="today"></daterange>
+           <daterange startdate="ULdate1" enddate="ULdate2" maxdate="today" format="format"></daterange>
         </div>
         <div class="col-lg-2">
           <md-button class="md-raised chart-update-button">Update</md-button>
@@ -160,9 +158,19 @@
     <div class="panel-body">
 
       <div class="pg-contrl">      
-        <div class="col-lg-10">
-           <daterange startdate="PGdate1" enddate="PGdate2" maxdate="today"></daterange>
+        <div class="col-lg-7">
+           <daterange startdate="PGdate1" enddate="PGdate2" maxdate="today" format="format"></daterange>
         </div>
+        <div class="col-lg-3">
+          <span style="margin-right: 5px;"> Chromsome:  </span>
+          <select ng-model="geneChr" class="selectpicker" data-width="auto">
+          <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+            {{chromosome}}
+          </option>
+        </select>
+
+        </div>
+
         <div class="col-lg-2">
           <md-button class="md-raised chart-update-button">Update</md-button>
         </div>
@@ -170,7 +178,7 @@
 
 
       <div class="visual">
-         <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
+         <histogram data="data" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
          <md-button class="md-raised chart-sort-but sortGeneButton">Sort</md-button>
       </div>
 

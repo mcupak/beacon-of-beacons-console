@@ -4,17 +4,39 @@
 angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI", 
  function($scope, mockedAPI) {
 
-    // Coloring of the donut charts for [yes, no, null/error]
-    $scope.colors = ["green", "red", "orange"];
+    /* Default Settings and dropdown options */
+   
+    // Options to display number of beacons 
+    $scope.opts = ["Top 10", "Top 20", "Top 30", "All"];
 
-    $scope.chromosomes = ["CHR1","CHR2","CHR3","CHR4","CHR5","CHR6","CHR7","CHR8",
+    // Chromosome choices: 
+    $scope.chromosomes = ["All","CHR1","CHR2","CHR3","CHR4","CHR5","CHR6","CHR7","CHR8",
                             "CHR9","CHR10","CHR11","CHR12","CHR13","CHR14","CHR15",
                             "CHR16","CHR17","CHR18","CHR19","CHR20","CHR21",
                             "CHR22","X","Y","MT"];
-
     $scope.chr = $scope.chromosomes[0];
-    $scope.allele = "A";
+    $scope.geneChr = $scope.chromosomes[0]
 
+    // Allele choices: 
+    $scope.alleles = ["All", "A", "T", "C", "G"];
+    $scope.allele = $scope.alleles[0];
+
+    // Coloring of the donut charts for [yes, no, null/error]
+    $scope.colors = ["green", "red", "orange"];
+
+    // Default Date for filtering: one month
+
+    $scope.today = new Date();
+    var lastMonth = new Date();
+    lastMonth.setMonth($scope.today.getMonth() - 1); 
+
+    $scope.BUdate2 = new Date($scope.today); $scope.BUdate1 = new Date(lastMonth);
+    $scope.BRdate2 = new Date($scope.today); $scope.BRdate1 = new Date(lastMonth);
+    $scope.BLdate2 = new Date($scope.today); $scope.BLdate1 = new Date(lastMonth);
+    $scope.ULdate2 = new Date($scope.today); $scope.ULdate1 = new Date(lastMonth);
+    $scope.PGdate2 = new Date($scope.today); $scope.PGdate1 = new Date(lastMonth); 
+
+    $scope.format = 'dd-MMMM-yyyy';
     /*
      *  Count number of responses in an array of response object 
     */
@@ -55,9 +77,6 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
 
     /* Histogram */ 
 
-    // Options to display number of beacons 
-    $scope.opts = ["Top 10", "Top 20", "Top 30", "All"];
-
     // fake data 
     $scope.data = [
         {"name":"amb","nqueries":15},
@@ -68,27 +87,10 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
         {"name":"bob","nqueries":20},
         {"name":"bob2","nqueries":5},
         {"name":"lamb2","nqueries":10}];
-    $scope.data2 = [
-        {"name":"amb","nqueries":15},
-        {"name":"amp","nqueries":30},
-        {"name":"amp2","nqueries":25},
-        {"name":"bo2","nqueries":18},
-        {"name":"bo3","nqueries":13}];
 
-    $scope.changeData = function(){
-        $scope.data = [
-        {"name":"amb","nqueries":20},
-        {"name":"amp","nqueries":30},
-        {"name":"amp2","nqueries":25},
-        {"name":"bo2","nqueries":18},
-        {"name":"bo3","nqueries":13},
-        {"name":"bob","nqueries":20},
-        {"name":"bob2","nqueries":5},
-        {"name":"lamb2","nqueries":10}, 
-        {"name":"zamb2","nqueries":20}]; 
-
-    }
-
+    // donut chart data
+    $scope.donutData = [2,2,3];
+    
     // real data 
     $scope.beaconResponsesN = []; 
 
@@ -152,15 +154,6 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
 
 
 
-
-
-    
-    $scope.printDate = function(){
-        console.log("date1: " +  $scope.date1);
-        console.log("date2: " +  $scope.date2)
-    }
-
-    $scope.today = new Date();
 
 
 
