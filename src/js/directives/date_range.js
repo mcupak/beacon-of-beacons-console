@@ -8,6 +8,8 @@
     `maxdate` could be set it to today's day by etting the attribute to "today" and 
     declaring ' $scope.today = new Date(); ' 
     in the view's controller
+
+    Format is also optional and can be any of the follow: 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'
 */ 
 var app = angular.module('RDash'); 
 app.directive('daterange', function () {
@@ -15,6 +17,7 @@ app.directive('daterange', function () {
         restrict: 'E',
         replace: true,
         scope: {
+            format : '=format',
             startdate: '=startdate',
             enddate: "=enddate", 
             mindate: "=mindate",
@@ -22,19 +25,19 @@ app.directive('daterange', function () {
         },
         template: 
             '<div class="date-range-selector">' + 
-            '<div class="date-start col-lg-6">' +
+            '<div class="date-start col-lg-6" style="padding-right:0px;">' +
                 '<div style="float:left; padding:5px; font-size:20px;">From </div>' + 
                 '<div class="input-group">' +
-                  '<input ng-model="startdate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" is-open="opened" min-date="mindate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
+                  '<input ng-model="startdate" type="text" class="form-control" datepicker-popup={{format}} is-open="opened" min-date="mindate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
                     '<button ng-click="openStartCalendar($event)" type="button" class="buttonstart btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
                   '</span>' +
                 '</div>' + 
             '</div>' + 
-            '<div class="date-end col-lg-6">' +
+            '<div class="date-end col-lg-6" style="padding-left:0px;">' +
                 '<div style="float:left; padding:5px; font-size:20px;">To </div>' + 
                 '<div class="input-group">' +
-                  '<input ng-model="enddate" type="text" class="form-control" datepicker-popup="yyyy-MM-dd" is-open="opened2" min-date="minEndDate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
+                  '<input ng-model="enddate" type="text" class="form-control" datepicker-popup={{format}} is-open="opened2" min-date="minEndDate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
                     '<button ng-click="openEndCalendar($event)" type="button" class="buttonend btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>' +
                   '</span>' +
@@ -49,7 +52,6 @@ app.directive('daterange', function () {
         },
         link: function (scope, element, attrs) {
             scope.dateOptions = {
-                formatYear: 'yy',
                 startingDay: 1
             };
 
