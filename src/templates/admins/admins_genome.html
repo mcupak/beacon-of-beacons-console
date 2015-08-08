@@ -1,11 +1,19 @@
 
-<div class="section row" ng-controller="BeaconSwitchCtrl">
+<div class="section row" ng-controller="genomeCtrl">
   <div class="panel">
-    <div class="panel-heading">
+    <div class="panel-heading admin-console-title">
       Beacon heatmap
     </div>
     <div class="panel-body">
-     
+        <span style="margin-right: 5px;"> Chromsome:  </span>
+        <select ng-model="chr" ng-change="updateChromosome()"class="selectpicker" data-width="auto">
+          <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+            {{chromosome}}
+          </option>
+        </select>
+        
+     <ui-cytoband cytoband-data="cytobandData" responsive="true"></ui-cytoband>
+
     </div>
   </div>
 </div>
