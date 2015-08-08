@@ -11,8 +11,12 @@
             {{chromosome}}
           </option>
         </select>
-        
-     <ui-cytoband cytoband-data="cytobandData" responsive="true"></ui-cytoband>
+
+     <ui-cytoband cytoband-data="cytobandData" heatmap-data="heatmapData"responsive="true"></ui-cytoband>
+
+    <md-checkbox ng-model="showBands" ng-change="toggleChromosome()">
+          Show chromosome bands
+    </md-checkbox>
 
     </div>
   </div>

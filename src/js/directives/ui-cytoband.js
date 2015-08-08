@@ -213,6 +213,7 @@
           // Update band positions and colors on data change (new bands data added)
           aChrData.enter()
             .append('rect')
+            .attr('class', 'chr-bands')
             .style('opacity', 0)
             .attr('fill-opacity', 0)
             .attr('x', offSet + armWidth)
@@ -236,13 +237,10 @@
           // Update band positions and colors on data change (previous bands data removed)
           aChrData.exit()
             .transition()
-            .delay(0)
-            .attr('y', height / 2)
-            .attr('height', '5%')
-            .attr('fill-opacity', 0)
-            .transition()
-            .delay(0)
             .duration(500)
+            .attr('y', height / 2)
+            .attr('height', 2)
+            .attr('fill-opacity', 0)
             .remove();
         }
 
