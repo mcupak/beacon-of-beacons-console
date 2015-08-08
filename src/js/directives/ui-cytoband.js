@@ -11,6 +11,7 @@
    *   "name": "p36.31",
    *   "type": "gneg"
    * }]
+   * @param {expression=} heatmapData: the data will draw the scattered plot
    * @param {expression=} width The width in px of the resulting svg of the directive (default is 460).
    * @param {expression=} height The height in px of the resulting svg of the directive (default is 50).
    * @param {expression=} responsive If responsive is set to `true`, width of the directive is ignored. Instead of fixed
@@ -24,6 +25,7 @@
     return {
       restrict: 'E',
       scope: {
+        heatmapData: '=',
         cytobandData: '=',
         width: '=',
         height: '=',
@@ -34,7 +36,7 @@
         // Basic attributes of the visualisation. TODO; This should be extended with user provided options.
         var CONFIG = {
           WIDTH: 460,
-          HEIGHT: 30,
+          HEIGHT: 50,
           RX: 15,
           RY: 15,
           STROKE: {
@@ -48,7 +50,8 @@
           height,
           svg,
           arm,
-          chrLastPosition;
+          chrLastPosition, 
+          heatmap;
 
         var bandColors = {
           acen: 'red',
@@ -61,9 +64,12 @@
           unknown: 'white'
         };
 
+
+
         function init() {
           // Initializing the svg variable immediately, because it's used to test if the directive was initialized.
           svg = 'init';
+          
 
           // If the responsive attribute is turned on, the width of the component is relative to the window width.
           // Otherwise, the supported width (or default one) is used.
@@ -133,6 +139,30 @@
           };
         }
 
+        function drawSearchedGene(){
+          // Get current start and end position to define the scale
+          var start = _.min(scope.cytobandData, 'start').start;
+          var end = _.max(scope.cytobandData, 'end').end;
+          var x = d3.scale.linear().domain([start, end]).range([0,width]);
+          
+          // Select
+          var dots = svg.selectAll("circle").data(scope.heatmapData);
+
+          // Enter 
+          var dotsEnter = dots.enter().append("circle").transition();
+
+          // Update all dots together 
+          dots.attr("fill", "red")
+            .attr("r", "4px")
+            .attr("fill-opacity", "0.1")
+            .attr('cx', function(d) { return x(d.query.position)})
+            .attr('cy', height/2);
+
+          // Exit
+          dots.exit().transition().attr("fill-opacity", 0).remove();
+
+        }
+
         function drawArm(armName, aBand) {
 
           var aMax = _.max(aBand, 'end').end;
@@ -141,7 +171,8 @@
           // Resizing of containers so arm have realistic width ratio
           var armWidth = (armName === 'p' ? aMax / chrLastPosition : 1 - aMin / chrLastPosition) * width;
           var offSet = armName === 'p' ? 0 : width - armWidth;
-          console.log(aMax / chrLastPosition);
+          
+
           arm[armName].stroke
             .transition()
             .attr('width', armWidth - CONFIG.STROKE.WIDTH)
@@ -225,6 +256,12 @@
             drawArm(armName, aBand);
           });
         }
+
+        scope.$watch('heatmapData', function (data, b) {
+          if (data) {
+              drawSearchedGene();
+          }
+        });
 
         scope.$watch('cytobandData', function (data, b) {
           !svg && init();
