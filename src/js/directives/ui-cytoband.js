@@ -19,7 +19,7 @@
    * @desc directive rendering a chromosome (g-banding) view.
    * @example <ui-cytoband cytoband-data="cytobandData" responsive="true"></ui-gene>
    */
-  angular.module('d3Angular').directive('uiCytoband', function (d3, $window, _) {
+  angular.module('RDash').directive('uiCytoband', function (d3, $window, _) {
 
     return {
       restrict: 'E',
@@ -70,7 +70,7 @@
           if (!scope.responsive) {
             width = parseFloat(scope.width) || CONFIG.WIDTH;
           } else {
-            width = $window.innerWidth - 250;
+            width = $window.innerWidth - 450;
           }
 
           height = parseFloat(scope.height) || CONFIG.HEIGHT;
@@ -100,7 +100,8 @@
           function getArmGroup(armName) {
             return svg
               .append('g')
-              .attr('mask', 'url(#' + armName + 'Mask)')
+              // Set to mask of corresponding ID
+              .attr('mask', 'url(#' + armName + 'Mask)')  
               .attr('x', CONFIG.STROKE.WIDTH)
               .attr('width', width / 2);
           }
@@ -125,6 +126,7 @@
             };
           }
 
+          // Where the code starts 
           arm = {
             p: getArm('p'),
             q: getArm('q')
@@ -139,7 +141,7 @@
           // Resizing of containers so arm have realistic width ratio
           var armWidth = (armName === 'p' ? aMax / chrLastPosition : 1 - aMin / chrLastPosition) * width;
           var offSet = armName === 'p' ? 0 : width - armWidth;
-
+          console.log(aMax / chrLastPosition);
           arm[armName].stroke
             .transition()
             .attr('width', armWidth - CONFIG.STROKE.WIDTH)
@@ -215,6 +217,7 @@
 
         function drawArms(data) {
           _.forEach(armTypes, function (armName) {
+            // Get an array of bands of that arm in the data
             var aBand = _.filter(data, function (item) {
               return item.name[0] === armName;
             });
@@ -237,22 +240,20 @@
             svg && svg.remove();
             init();
             scope.cytobandData && drawArms(scope.cytobandData);
-            scope.variantPosition && drawLabel(scope.variantPosition);
           }
         });
 
         angular.element($window).on('resize.dna.cytoband', function () {
           var newWidth = $window.innerWidth - 250;
-          if (width !== newWidth) {
+          if (width !== newWidth && scope.responsive) {
             svg.remove();
             init();
             scope.cytobandData && drawArms(scope.cytobandData);
-            scope.variantPosition && drawLabel(scope.variantPosition);
           }
         });
 
         scope.$on('$destroy', function () {
-          angular.element($window).off('resize.cytoband');
+          angular.element($window).off('resize.dna.cytoband');
         });
       }
     };
