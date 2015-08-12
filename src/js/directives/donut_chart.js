@@ -108,7 +108,6 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 			scope.$watchCollection(exp, function(newCollection, oldCollection, scope) {
 				data = newCollection;
 				drawDonut();
-				console.log("data changed!");
 			});
 
 

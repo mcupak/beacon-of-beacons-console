@@ -88,6 +88,16 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
         {"name":"bob2","nqueries":5},
         {"name":"lamb2","nqueries":10}];
 
+    $scope.data2 = [
+        {"name":"cftr","nqueries":15},
+        {"name":"brca1","nqueries":30},
+        {"name":"bcl2","nqueries":25},
+        {"name":"cd4","nqueries":18},
+        {"name":"il2","nqueries":13},
+        {"name":"myc","nqueries":20},
+        {"name":"raf","nqueries":5},
+        {"name":"egfr","nqueries":10}];
+
     // donut chart data
     $scope.donutData = [2,2,3];
     
