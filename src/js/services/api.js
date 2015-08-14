@@ -1,5 +1,5 @@
 angular.module("RDash").factory("API", ['$http', function($http) {
-	var API_ENDPOINT = "http://dnastack.com/bob-api/rest";
+	var API_ENDPOINT = "https://beacon-network.org/api";
  
 	return {
 		getBeacons: function() {

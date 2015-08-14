@@ -3,7 +3,7 @@ function writeIFrame(chromosome, position, allele, genome, beacons) {
     /* Write the source URL of the iframe based on the API */ 
 
     // baseURL of the iframe 
-    var url = "http://beacon-network.org/widget.html?"; 
+    var url = "https://beacon-network.org/widget.html?";
 
     // genome reference parameter 
     url += (genome == "all") ? "\&ref=" : ("\&ref="+genome);

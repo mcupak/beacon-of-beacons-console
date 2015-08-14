@@ -6,7 +6,7 @@ var app = angular.module('RDash', []);
 app.factory("query", ["$http", function($http){
 	var query = {};
 
-	var API_ENDPOINT = "http://dnastack.com/bob-api/rest"; 
+	var API_ENDPOINT = "https://beacon-network.org/api";
 
 	query.getBeacons = function(){
 		return $http.get(API_ENDPOINT + "/beacons");
