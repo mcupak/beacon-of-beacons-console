@@ -20,7 +20,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				outerRadius = w / 2, 
 				innerRadius = w / 3, 
 				titleFontSize = 35, 
-				sumFontSize = 20,
+				sumFontSize = 25,
 				labelFontSize = 20,
 				titleSeparation = 30;
 
@@ -42,7 +42,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 					.attr("text-anchor", "middle")
 					.style("font-family", "Roboto")
 					.style("font-size", titleFontSize + 'px')
-					.style("fill", "#888");
+					.style("fill", "#000000");
 
 
 			var total = svg.append("text")
@@ -51,7 +51,7 @@ app.directive('donut', ['$parse', '$window', function($parse, $window){
 				.attr("text-anchor", "middle")
 				.style("font-family", "Roboto")
 				.style("font-size", sumFontSize + 'px')
-				.style("fill", "#888");
+				.style("fill", "#000000");
 
 			function getTotal(array){
 				var sum = 0;
