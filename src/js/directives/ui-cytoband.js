@@ -139,24 +139,26 @@
           };
         }
 
-        function drawSearchedGene(){
+        function drawSearchedPositions(){
           // Get current start and end position to define the scale
           var start = _.min(scope.cytobandData, 'start').start;
           var end = _.max(scope.cytobandData, 'end').end;
           var x = d3.scale.linear().domain([start, end]).range([0,width]);
           
           // Select
-          var dots = svg.selectAll("circle").data(scope.heatmapData);
+          var dots = svg.selectAll("line").data(scope.heatmapData);
 
           // Enter 
-          var dotsEnter = dots.enter().append("circle").transition();
+          var dotsEnter = dots.enter().append("line").transition();
 
           // Update all dots together 
-          dots.attr("fill", "red")
-            .attr("r", "4px")
-            .attr("fill-opacity", "0.1")
-            .attr('cx', function(d) { return x(d.query.position)})
-            .attr('cy', height/2);
+          dots.attr("stroke", "red")
+            .attr("stroke-width", 2)
+            .attr("opacity", "0.1")
+            .attr('x1', function(d) { return x(d.query.position)})
+            .attr('x2', function(d) { return x(d.query.position)})
+            .attr('y1', 2)
+            .attr('y2', height);
 
           // Exit
           dots.exit().transition().attr("fill-opacity", 0).remove();
@@ -208,7 +210,8 @@
             .attr('x', bandOffset)
             .attr('width', bandWidth)
             .attr('height', height)
-            .attr('fill', bandColor);
+            .attr('fill', bandColor)
+            .attr('fill-opacity', 0.5);
 
           // Update band positions and colors on data change (new bands data added)
           aChrData.enter()
@@ -226,7 +229,7 @@
             .attr('x', bandOffset)
             .attr('width', bandWidth)
             .attr('fill', bandColor)
-            .style('opacity', 1)
+            .style('opacity', 0.5)
             .attr('fill-opacity', 1)
             .transition()
             .delay(1000)
@@ -257,7 +260,7 @@
 
         scope.$watch('heatmapData', function (data, b) {
           if (data) {
-              drawSearchedGene();
+              drawSearchedPositions();
           }
         });
 
@@ -275,6 +278,8 @@
             svg && svg.remove();
             init();
             scope.cytobandData && drawArms(scope.cytobandData);
+
+            drawSearchedPositions();
           }
         });
 
@@ -284,6 +289,8 @@
             svg.remove();
             init();
             scope.cytobandData && drawArms(scope.cytobandData);
+
+            drawSearchedPositions();
           }
         });
 
