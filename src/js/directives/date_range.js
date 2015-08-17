@@ -26,7 +26,7 @@ app.directive('daterange', function () {
         template: 
             '<div class="date-range-selector">' + 
             '<div class="date-start col-lg-6" style="padding-right:0px;">' +
-                '<div style="float:left; padding:5px; font-size:20px;">From </div>' + 
+                '<div style="float:left; padding:5px; font-size:15px;">From </div>' + 
                 '<div class="input-group">' +
                   '<input ng-model="startdate" type="text" class="form-control" datepicker-popup={{format}} is-open="opened" min-date="mindate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
@@ -35,7 +35,7 @@ app.directive('daterange', function () {
                 '</div>' + 
             '</div>' + 
             '<div class="date-end col-lg-6" style="padding-left:0px;">' +
-                '<div style="float:left; padding:5px; font-size:20px;">To </div>' + 
+                '<div style="float:left; padding:5px; font-size:15px;">To </div>' + 
                 '<div class="input-group">' +
                   '<input ng-model="enddate" type="text" class="form-control" datepicker-popup={{format}} is-open="opened2" min-date="minEndDate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" close-text="Close">' +
                   '<span class="input-group-btn">' +
