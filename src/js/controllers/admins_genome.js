@@ -1,6 +1,6 @@
 
-angular.module('RDash').controller('genomeCtrl', ["$scope", "chrBands", "mockedAPI",  
-  function($scope, chrBands, mockedAPI) {
+angular.module('RDash').controller('genomeCtrl', ["$scope", "$timeout", "chrBands", "mockedAPI",  
+  function($scope, $timeout, chrBands, mockedAPI) {
    	/*  Draw chromsomes  */ 
 
    	// Get the data 
@@ -94,5 +94,13 @@ angular.module('RDash').controller('genomeCtrl', ["$scope", "chrBands", "mockedA
         $scope.searchBarText = "Search for beacons"; 
 
     });
+
+    // Show the bootstrap dropdown select
+    $(document).ready(function() {
+        $timeout(function(){$('.selectpicker').selectpicker();}, 2000); 
+       
+    });
+
+
 
 }]); 

@@ -1,13 +1,14 @@
 /**
  * Beacon performance display controller 
  */
-angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI", 
- function($scope, mockedAPI) {
+angular.module('RDash').controller('performanceCtrl', ['$scope', '$timeout', "mockedAPI", 
+ function($scope, $timeout, mockedAPI) {
 
     /* Default Settings and dropdown options */
    
     // Options to display number of beacons 
-    $scope.opts = ["Top 10", "Top 20", "Top 30", "All"];
+    $scope.displayOpts = ["Top 10", "Top 20", "Top 30", "All"];
+    $scope.displayOpt = $scope.displayOpts[0]; 
 
     // Chromosome choices: 
     $scope.chromosomes = ["All","CHR1","CHR2","CHR3","CHR4","CHR5","CHR6","CHR7","CHR8",
@@ -15,7 +16,7 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
                             "CHR16","CHR17","CHR18","CHR19","CHR20","CHR21",
                             "CHR22","X","Y","MT"];
     $scope.chr = $scope.chromosomes[0];
-    $scope.geneChr = $scope.chromosomes[0]
+    $scope.geneChr = $scope.chromosomes[0];
 
     // Allele choices: 
     $scope.alleles = ["All", "A", "T", "C", "G"];
@@ -36,7 +37,7 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     $scope.ULdate2 = new Date($scope.today); $scope.ULdate1 = new Date(lastMonth);
     $scope.PGdate2 = new Date($scope.today); $scope.PGdate1 = new Date(lastMonth); 
 
-    $scope.format = 'dd-MMMM-yyyy';
+    $scope.format = 'yyyy-MM-dd';
     /*
      *  Count number of responses in an array of response object 
     */
@@ -163,7 +164,11 @@ angular.module('RDash').controller('performanceCtrl', ['$scope', "mockedAPI",
     });
 
 
-
+    // Show the bootstrap dropdown select
+    $(document).ready(function() {
+        $timeout(function(){$('.selectpicker').selectpicker();}, 2000); 
+       
+    });
 
 
 
