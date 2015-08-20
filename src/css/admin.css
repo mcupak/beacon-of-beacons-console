@@ -155,3 +155,43 @@ svg{
 	text-align: center;
 }
 
+
+/* date and time range picker */ 
+.date-element {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.date-start{
+	height: 80px;
+}
+
+.date-end{
+	height: 80px;
+}
+
+
+@media screen and (max-width: 1200px) {
+
+    .date-pick {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .time-pick {
+    	margin: 0 auto;
+    	transform: translateY(-15%) !important;
+    }
+    .date-start {
+    	display: block;
+    	float:right;
+    }
+    .date-end {
+    	display: block;
+    	float:right;
+    }
+
+    .date-range-selector .guide-text {
+		float: none !important;
+    }
+}

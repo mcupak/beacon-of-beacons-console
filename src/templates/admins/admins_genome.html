@@ -5,18 +5,55 @@
       Beacon heatmap
     </div>
     <div class="panel-body">
-        <span style="margin-right: 5px;"> Chromsome:  </span>
-        <select ng-model="chr" ng-change="updateChromosome()"class="selectpicker" data-width="auto">
+        
+        
+      <date-time-range startdate="BHdate1" enddate="BHdate2" maxdate="today" format="format"></date-time-range> 
+
+        
+      <div class="searchBar col-lg-12">  
+        <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
+        <md-autocomplete
+            class="auto-complete"
+            md-search-text-change="null"
+            md-selected-item-change=""
+            md-selected-item="selectedItem"
+            md-search-text="searchText"
+            md-items="item in querySearch(searchText)"
+            md-item-text="item.name"
+            placeholder={{searchBarText}}>
+          <span md-highlight-text="searchText">{{item.name}} :: {{item.organization.id}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+          <span>
+            <strong>{{$chip.name}}</strong>
+            <em>({{$chip.organization.id}})</em>
+          </span>
+        </md-chip-template>
+        <button md-chip-remove="" class="md-primary beaconchip" style="line-height: 0em;">
+          <i class="fa fa-times"></i>
+        </button>
+        </md-chips>
+      </div>
+
+
+     <ui-cytoband cytoband-data="cytobandData" heatmap-data="heatmapData"responsive="true"></ui-cytoband>
+
+    <div>
+      <div style="float:left; padding-left:30px;">
+        <span style="margin-right:5px;"> Chromsome:  </span>
+        <select ng-model="chr" ng-change="updateChromosome()" class="selectpicker" data-width="auto">
           <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
             {{chromosome}}
           </option>
         </select>
+      </div>
+      <div style="float:right;">
+        <md-checkbox ng-model="showBands" ng-change="toggleChromosome()">
+            Show chromosome bands
+        </md-checkbox>
+      </div>
+    </div>
 
-     <ui-cytoband cytoband-data="cytobandData" heatmap-data="heatmapData"responsive="true"></ui-cytoband>
-
-    <md-checkbox ng-model="showBands" ng-change="toggleChromosome()">
-          Show chromosome bands
-    </md-checkbox>
 
     </div>
   </div>
