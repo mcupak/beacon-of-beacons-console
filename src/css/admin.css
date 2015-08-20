@@ -3,16 +3,16 @@
 .admin-menu h2{
 	color:black;
 }
-.col-md-4{
+.dir-box{
 	height: 10em;
 }
-.col-md-4:hover{
+.dir-box:hover{
 	background-color:white;
 }
-.col-md-4 h2{
+.dir-box h2{
 	color: #3A1758;
 }
-.col-md-4 p{
+.dir-box p{
 	color:black;
 }
 
