@@ -4,6 +4,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 		restrict: "E", 
 		replace: false,
 		scope: true,
+		template: "<div class='histogram-chart'></div>",
 		link: function(scope, elem, attrs) {
 			var exp = $parse(attrs.data);
 			var d3 = $window.d3;
@@ -27,11 +28,14 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			// A formatter for counts.
 			var formatCount = d3.format(",.0f");
 
-			var x, y, xAxis, yAxis, svg; 
+			var x, y, xAxis, yAxis, svg, chart; 
 
-			svg = d3.select(elem[0]).append("svg").attr("class", "histogram-chart");
+			svg = d3.select(elem[0]).append("svg").attr("class", "histogram")
+				.attr("height", height + margin.top + margin.bottom)
+				.attr("width", width + margin.left + margin.right)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 					
-
 			// Initialize histogram, svg and the scales
 			function init(){
 
@@ -51,10 +55,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				.orient("left")
 				.tickFormat(formatCount);
 
-				svg.attr("width", width + margin.left + margin.right)
-					.attr("height", height + margin.top + margin.bottom)
-					.append("g")
-					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 			}
 
 			init();
@@ -88,6 +88,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 					.append("text")
 					.attr("transform", "rotate(-90)")
 					.attr("y", 6)
+					//.attr("x", "100px")
 					.attr("dy", ".71em")
 					.style("text-anchor", "end")
 					.style("fill", axisLabelColor)
@@ -106,7 +107,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				x.domain(data.map(function(d) { return d.name; }));
 				y.domain([0, d3.max(data, function(d) { return d.nqueries; })]);
 
-				svg.selectAll("g.y-axis").transition().call(yAxis).attr("x", width );
+				svg.selectAll("g.y-axis").transition().call(yAxis);
 				svg.selectAll("g.x-axis").transition().call(xAxis);
 
 			}
@@ -190,7 +191,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 			angular.element($window).on("resize.histogram", function (){
 				if (responsive) {
 					width = elem.parent()[0].offsetWidth - margin.left - margin.right;
-					svg.selectAll("*").remove();
 					init();
 					updateHistogram();
 				}
