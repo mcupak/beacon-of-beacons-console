@@ -4,7 +4,6 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 		restrict: "E", 
 		replace: false,
 		scope: true,
-		template: "<div class='histogram-chart'></div>",
 		link: function(scope, elem, attrs) {
 			var exp = $parse(attrs.data);
 			var d3 = $window.d3;
@@ -22,33 +21,43 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				yText = scope[attrs.ytext] || attrs.ytext || "# QUERIES",
 				xText = scope[attrs.xtext] || attrs.xtext || "IDs", 
 				barColor = scope[attrs.color] || attrs.color || "steelblue", 
-				buttonClassName = scope[attrs.button] || attrs.button || "sortButton";
+				buttonClassName = scope[attrs.button] || attrs.button || "sortButton", 
+				responsive = scope[attrs.responsive] || attrs.responsive || true;
 			
 			// A formatter for counts.
 			var formatCount = d3.format(",.0f");
 
-			// Set the scale, separate the first bar by a bar width from y-axis
-			var x = d3.scale.ordinal()
+			var x, y, xAxis, yAxis, svg; 
+
+			svg = d3.select(elem[0]).append("svg").attr("class", "histogram-chart");
+					
+
+			// Initialize histogram, svg and the scales
+			function init(){
+
+				// rangeRoundBands: separate the first bar by a bar width from y-axis
+				x = d3.scale.ordinal()
 				.rangeRoundBands([0, width], .1, 1);
 
-			var y = d3.scale.linear()
+				y = d3.scale.linear()
 				.range([height, 0]);
 
-			var xAxis = d3.svg.axis()
+				xAxis = d3.svg.axis()
 				.scale(x)
 				.orient("bottom");
 
-			var yAxis = d3.svg.axis()
+				yAxis = d3.svg.axis()
 				.scale(y)
 				.orient("left")
 				.tickFormat(formatCount);
 
-			// Initialize histogram 
-			var svg = d3.select(elem[0]).append("svg").attr("class", "histogram-chart")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-				.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				svg.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			}
+
+			init();
 
 			function drawAxis(){
 
@@ -97,7 +106,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 				x.domain(data.map(function(d) { return d.name; }));
 				y.domain([0, d3.max(data, function(d) { return d.nqueries; })]);
 
-				svg.selectAll("g.y-axis").transition().call(yAxis);
+				svg.selectAll("g.y-axis").transition().call(yAxis).attr("x", width );
 				svg.selectAll("g.x-axis").transition().call(xAxis);
 
 			}
@@ -123,7 +132,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 					.attr("class","numberLabel");
 
 				// Update 
-				bar.select("rect").transition()
+				bar.select("rect").attr("fill", barColor).transition()
 					.attr("fill", barColor)
 					.attr("x", function(d){ return x(d.name) })
 					.attr("width", x.rangeBand())
@@ -138,9 +147,7 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 					.attr("text-anchor", "middle")
 					.attr("class", "numberLabel")
 					.text(function(d) { return formatCount(d.nqueries); });               
-
 			}
-
 
 			var sortByVal = false; 
 			d3.select('.' + buttonClassName).on("click", function(){
@@ -172,12 +179,25 @@ app.directive('histogram', ['$parse', '$window', function($parse, $window){
 					.delay(delay);
 			}
 
-
-				// Re-render the graph when data is changed. 
+			// Re-render the graph when data is changed. 
 			scope.$watch(exp, function(newCollection, oldCollection, scope) {
 				data = newCollection;
 				updateHistogram();
 
+			});
+
+			// Re-render the graph when window size changes
+			angular.element($window).on("resize.histogram", function (){
+				if (responsive) {
+					width = elem.parent()[0].offsetWidth - margin.left - margin.right;
+					svg.selectAll("*").remove();
+					init();
+					updateHistogram();
+				}
+			});
+
+			scope.$on("$destroy",function (){
+				$(window).off("resize.histogram"); //remove the handler added earlier
 			});
 
 		}
