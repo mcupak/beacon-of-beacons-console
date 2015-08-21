@@ -204,9 +204,9 @@
 
           // Update band positions and colors on data change
           aChrData
-            .transition()
-            .delay(0)
-            .duration(250)
+            // .transition()
+            // .delay(0)
+            // .duration(250)
             .attr('x', bandOffset)
             .attr('width', bandWidth)
             .attr('height', height)
@@ -223,17 +223,17 @@
             .attr('y', height / 2)
             .attr('width', bandWidth)
             .attr('height', 2)
-            .transition()
-            .delay(0)
-            .duration(1000)
+            // .transition()
+            // .delay(0)
+            // .duration(1000)
             .attr('x', bandOffset)
             .attr('width', bandWidth)
             .attr('fill', bandColor)
             .style('opacity', 0.5)
             .attr('fill-opacity', 1)
-            .transition()
-            .delay(1000)
-            .duration(500)
+            // .transition()
+            // .delay(1000)
+            // .duration(500)
             .attr('y', CONFIG.STROKE.WIDTH)
             .attr('height', height);
 
@@ -241,8 +241,8 @@
           aChrData.exit()
             .transition()
             .duration(500)
-            .attr('y', height / 2)
-            .attr('height', 2)
+            //.attr('y', height / 2)
+            //.attr('height', 2)
             .attr('fill-opacity', 0)
             .remove();
         }
