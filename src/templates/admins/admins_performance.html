@@ -10,21 +10,21 @@
 
     <div class="bu-control">
 
-      <div class="col-lg-2 option-selector">
-        <select class="selectpicker">
-          <option>Top 10</option>
-          <option>Top 20</option>
-          <option>Top 30</option>
-          <option>All</option>
-        </select>    
+      <div class="col-lg-12 col-md-12">
+        <date-time-range startdate="BUdate1" enddate="BUdate2" maxdate="today" format="format"></date-time-range>
       </div>
 
-      <div class="col-lg-8">
-        <daterange startdate="BUdate1" enddate="BUdate2" maxdate="today" format="format"></daterange>
-      </div>
+      <div class="col-lg-12 col-md-12" style="padding-top:20px;">
+        <div class="option-selector col-lg-6" style="padding-bottom:10px;" >
+          <select class="selectpicker" ng-model='displayOpt' data-width="auto">
+            <option ng-repeat="opt in displayOpts" value="{{opt}}">
+              {{opt}}
+          </select>    
+        </div>
 
-      <div class="col-lg-2">
-        <md-button class="md-raised chart-update-button">Update</md-button>
+        <div class="col-lg-6" style="float:right;padding-bottom:10px;">
+          <md-button class="md-raised chart-update-button">Update</md-button>
+        </div>
       </div>
 
     </div>
@@ -54,11 +54,13 @@
       Beacon Response Breakdown 
     </div>
     <div class="panel-body">
-      <div class="col-lg-2 visual">
-        <donut class="example" data="donutData" nquery="10" name="total:" colors="colors">
-      </div>
 
-    <div class="filter col-lg-10">  
+
+    <div class="filter col-lg-9">  
+
+      <div class="col-lg-12" >
+         <date-time-range startdate="BRdate1" enddate="BRdate2" maxdate="today" format="format"></date-time-range>
+      </div>
       <div class="searchBar col-lg-12">  
         <md-chips class="beacon-chips" ng-model="selectedBeacons" md-autocomplete-snap md-require-match readonly="readonly">
         <md-autocomplete
@@ -83,54 +85,56 @@
         </button>
         </md-chips>
       </div>
-       
-      <div class="col-lg-7">
-         <daterange startdate="BRdate1" enddate="BRdate2" maxdate="today" format="format"></daterange>
-      </div>
-
-     
-      <div class="col-lg-2 option-selector"> 
-        <span style="margin-right: 5px;"> Chromsome:  </span>
-        <select ng-model="chr" class="selectpicker" data-width="auto">
-          <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
-            {{chromosome}}
-          </option>
-        </select>
-      </div>
-      <div class="col-lg-2 option-selector">
-        <span style="margin-right: 5px;"> Allele:  </span>
-        <select ng-model="allele" class="selectpicker" data-width="auto">
-          <option ng-repeat="allele in alleles" value="{{allele}}">
-            {{allele}}
-        </select>
-      </div>
-      <div class="col-lg-1">
-        <md-button class="md-raised chart-update-button">Update</md-button>
-      </div>
-       
+  
+      <div class="container col-lg-12 col-md-12">
+         <div class="col-lg-4 col-md-4 option-selector"> 
+            <span style="margin-right: 5px;"> Chromsome:  </span>
+            <select ng-model="chr" class="selectpicker" data-width="auto">
+              <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
+                {{chromosome}}
+              </option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4 option-selector">
+            <span style="margin-right: 5px;"> Allele:  </span>
+            <select ng-model="allele" class="selectpicker" data-width="auto">
+              <option ng-repeat="allele in alleles" value="{{allele}}">
+                {{allele}}
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <md-button class="md-raised chart-update-button">Update</md-button>
+          </div>
+        </div>
 
     </div>
+  
+    <div class="col-lg-2 col-md-12 donut-visual container">
+        <donut class="example" data="donutData" nquery="10" name="total:" colors="colors">
+    </div>
+
+    <div class="col-log-1"></div>
 
   </div>
 </div>
 
-<div class="section col-lg-5">
+<div class="section row">
   <div class="panel">
     <div class="panel-heading admin-console-title">
       Users Leader Board 
     </div>
     <div class="panel-body">
-      
+     
       <div class="ul-contrl">      
-        <div class="col-lg-10">
-           <daterange startdate="ULdate1" enddate="ULdate2" maxdate="today" format="format"></daterange>
+        <div class="col-lg-12">
+           <date-time-range startdate="ULdate1" enddate="ULdate2" maxdate="today" format="format"></date-time-range>
         </div>
-        <div class="col-lg-2">
+   <div style="float:right;">
           <md-button class="md-raised chart-update-button">Update</md-button>
         </div>
       </div>
 
-      <div class="">
+      
         <table class="table table-striped user-board">
           <thead>
             <tr>
@@ -143,62 +147,57 @@
               <td>{{d.nqueries}}</td>
             </tr>
         </table>
-      </div>
+      
     </div>
       
 
   </div>
 </div>
 
-<div class="section col-lg-7">
+<div class="section row">
   <div class="panel">
     <div class="panel-heading admin-console-title">
       Popular Genes 
     </div>
     <div class="panel-body">
 
-      <div class="pg-contrl">      
-        <div class="col-lg-7">
-           <daterange startdate="PGdate1" enddate="PGdate2" maxdate="today" format="format"></daterange>
-        </div>
-        <div class="col-lg-3">
-          <span style="margin-right: 5px;"> Chromsome:  </span>
+    <div class="pg-control">
+
+      <div class="col-lg-12 col-md-12">
+        <date-time-range startdate="PGdate1" enddate="PGdate2" maxdate="today" format="format"></date-time-range>
+      </div>
+      
+      <div class="col-lg-12 col-md-12" style="padding-top:20px;">
+        <div class="option-selector col-lg-6" style="padding-bottom:10px;" >
+          <span style="margin-right: 3px;"> Chromsome:</span>
           <select ng-model="geneChr" class="selectpicker" data-width="auto">
           <option ng-repeat="chromosome in chromosomes" value="{{chromosome}}">
             {{chromosome}}
           </option>
-        </select>
-
+          </select>  
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-6" style="float:right;padding-bottom:10px;">
           <md-button class="md-raised chart-update-button">Update</md-button>
         </div>
       </div>
 
+    </div>
 
-      <div class="visual">
-         <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
-         <md-button class="md-raised chart-sort-but sortGeneButton">Sort</md-button>
-      </div>
+    <div class="chart">
+      <histogram data="data2" ytext="# Queries" xtext="Genes" color="rgb(103, 91, 191)" button="sortGeneButton"></histogram> 
+    </div>
+    
+    <div>
+      <md-button class="md-raised chart-sort-button sortGeneButton">Sort</md-button>
+    </div>
 
-      <div class="col-lg-6">
-       
 
-      </div>
     </div>
       
 
   </div>
 </div>
-
-
-
-
-
-
-
-
 
 
 </div>
