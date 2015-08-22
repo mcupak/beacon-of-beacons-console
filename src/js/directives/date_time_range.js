@@ -25,9 +25,9 @@ app.directive('dateTimeRange', function () {
         },
         template: 
             '<div class="date-range-selector">' + 
-                '<div class="date-start col-lg-6">' +
-                    '<div class="col-lg-9 date-element date-pick" style="top:50%; transform:translateY(-50%);">' +
-                        '<div class="guide-text" style="float:left; padding:5px; font-size:15px;">From </div>' + 
+                '<div class="date-start col-lg-6 col-md-12 ">' +
+                    '<div class="col-lg-9 col-md-8 col-sm-12 date-element date-pick" >' +
+                        '<div class="guide-text">From </div>' + 
                         '<div class="input-group">' +
                           '<input ng-model="startdate" type="text" class="form-control" datepicker-popup={{format}} is-open="opened" min-date="mindate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" >' +
                           '<span class="input-group-btn">' +
@@ -35,13 +35,13 @@ app.directive('dateTimeRange', function () {
                           '</span>' +
                         '</div>' +
                     '</div>' + 
-                    '<div class="col-lg-3 date-element time-pick" style="top:50%; transform:translateY(-50%);">' +
+                    '<div class="col-lg-3 col-md-4 col-sm-12 date-element time-pick">' +
                         '<timepicker ng-model="startdate" hour-step="1" minute-step="10" show-meridian="ismeridian"></timepicker>' + 
                     '</div>' + 
                 '</div>' + 
-                '<div class="date-end col-lg-6">' +
-                    '<div class="col-lg-9 date-element date-pick" style="top:50%; transform:translateY(-50%);">' +
-                        '<div class="guide-text" style="float:left; padding:5px; font-size:15px;">To </div>' + 
+                '<div class="date-end col-lg-6 col-md-12">' +
+                    '<div class="col-lg-9 col-md-8 col-sm-12 date-element date-pick" >' +
+                        '<div class="guide-text">To </div>' + 
                         '<div class="input-group">' +
                           '<input ng-model="enddate"  type="text" class="form-control" datepicker-popup={{format}} is-open="opened2" min-date="minEndDate" max-date="maxdate" datepicker-options="dateOptions" ng-required="true" >' +
                           '<span class="input-group-btn">' +
@@ -49,7 +49,7 @@ app.directive('dateTimeRange', function () {
                           '</span>' +
                         '</div>' + 
                     '</div>' + 
-                    '<div class="col-lg-3 date-element time-pick" style="top:50%; transform:translateY(-50%);">' +
+                    '<div class="col-lg-3 col-md-4 col-sm-12 date-element time-pick" >' +
                         '<timepicker ng-model="enddate" hour-step="1" minute-step="10" show-meridian="ismeridian"></timepicker>' + 
                     '</div>' + 
                 '</div>' +

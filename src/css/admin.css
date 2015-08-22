@@ -99,6 +99,18 @@ svg{
 	margin-top: -20px;
 }
 
+/* Donut chart */ 
+.donut-visual{
+	padding-right: 20px;
+	display:inline-block;
+}
+
+@media screen and (max-width: 1200px) {
+	.donut-visual{
+		margin-left: 30%;
+	}
+}
+
 /* Chips */ 
 .beacon-chips .md-chip {
 	position: relative;
@@ -158,40 +170,62 @@ svg{
 
 /* date and time range picker */ 
 .date-element {
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
+	top:50%; 
+	transform:translateY(-50%);
 }
 
 .date-start{
-	height: 80px;
+	height: 90px;
 }
 
 .date-end{
-	height: 80px;
+	height: 90px;
+}
+.date-range-selector .guide-text {
+	float:left; padding:5px; font-size:15px;
 }
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 995px) {
+	.date-range-selector{
+		margin-bottom: 10%;
+		margin-left: 10%;
+		margin-right: 0%;
+	}
 
     .date-pick {
-        width: 80%;
+        width: 70%;
         margin: 0 auto;
     }
-    .time-pick {
+    .date-range-selector .time-pick {
+    	width: 20%;
     	margin: 0 auto;
-    	transform: translateY(-15%) !important;
-    }
-    .date-start {
-    	display: block;
-    	float:right;
-    }
-    .date-end {
-    	display: block;
-    	float:right;
+    	transform: translateY(-35%);
     }
 
     .date-range-selector .guide-text {
-		float: none !important;
+		float: none;
     }
 }
+
+@media screen and (max-width: 767px) {
+	.date-range-selector{
+		margin-bottom: 20%;
+	}
+	.date-pick {
+        width: 90%;
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .date-range-selector .time-pick {
+    	width: 90%;
+    	margin: 0 auto;
+    	display: inline-block;
+    	margin-left:30%;
+    }
+    .date-end, .date-start {
+    	height: 150px;
+    }
+
+}
+
